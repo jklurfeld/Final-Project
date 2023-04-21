@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class BinSearchTree extends BinTree {
-    public void insert(BinTreeNode node, BinTreeNode root){
+    public void insertR(BinTreeNode node, BinTreeNode root){
         if (isEmpty()){
             setRoot(node);
             return;
@@ -11,7 +11,7 @@ public class BinSearchTree extends BinTree {
                 addRight(node, root);
             }
             else {
-                insert(node, root.getRight());
+                insertR(node, root.getRight());
             }
         }
         if (node.getData() <= root.getData()){
@@ -19,13 +19,13 @@ public class BinSearchTree extends BinTree {
                 addLeft(node, root);
             }
             else {
-                insert(node, root.getLeft()); 
+                insertR(node, root.getLeft()); 
             }
         }
     }
 
-    public void insertW(BinTreeNode node){
-        insert(node, getRoot());
+    public void insert(BinTreeNode node){
+        insertR(node, getRoot());
     }
 
     public ArrayList<Integer> traverseW(){
