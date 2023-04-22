@@ -1,4 +1,6 @@
 public class AVLTree extends BinSearchTree{
+    // have to have this new variable because if I just try to use the old one, then Java can't guarantee that it will have fields like
+    // height and balance factor or have children that are also AVLNodes
     AVLNode AVLroot;
 
     public AVLNode getRoot(){
@@ -14,6 +16,25 @@ public class AVLTree extends BinSearchTree{
             return true;
         }
         return false;
+    }
+
+    // I think my code isn't working without these because my left and rights of each node are different variables than in the original class
+    // because they have to be AVLNodes. It seems like the only thing I'm extending is the field for data, which makes me think I shouldn't be 
+    // extending at all, but the problem is I said I would in my proposal
+    public void addLeft(int data, AVLNode parent){
+        parent.setLeft(new AVLNode(data));
+    }
+
+    public void addLeft(AVLNode child, AVLNode parent){
+        parent.setLeft(child);
+    }
+
+    public void addRight(int data, AVLNode parent){
+        parent.setRight(new AVLNode(data));
+    }
+
+    public void addRight(AVLNode child, AVLNode parent){
+        parent.setRight(child);
     }
 
     // returns true if all of the balance factors are 0, 1, or -1, returns false otherwise
@@ -81,6 +102,8 @@ public class AVLTree extends BinSearchTree{
         return y;
     }
 
+    // I think the rotations are probably working, but the toString is not working because of the class variable root is not being updated when necessary,
+    // so I think I need to add that as a special case as well
     public void insertR(AVLNode node, AVLNode root){
         if (root == null){
             setRoot(node);
@@ -104,21 +127,29 @@ public class AVLTree extends BinSearchTree{
         }
         root.setHeight(1 + max(height(root.getLeft()), height(root.getRight())));
         root.setBalanceFactor(getBalance(root));
-        // int balance = root.getBalanceFactor();
-        // if (balance > 1 && node.getData() < root.getLeft().getData()){
-        //     rightRotate(root);
-        // }
-        // if (balance < -1 && node.getData() > root.getRight().getData()){
-        //     leftRotate(root);
-        // }
-        // if (balance > 1 && node.getData() > root.getLeft().getData()){
-        //     root.setLeft(leftRotate(root.getLeft()));
-        //     rightRotate(root);
-        // }
-        // if (balance < -1 && node.getData() > root.getRight().getData()){
-        //     root.setRight(rightRotate(root.getRight()));
-        //     leftRotate(root);
-        // }
+        int balance = root.getBalanceFactor();
+
+        // right rotation
+        if (balance > 1 && node.getData() < root.getLeft().getData()){
+            rightRotate(root);
+        }
+
+        // left rotation
+        if (balance < -1 && node.getData() > root.getRight().getData()){
+            leftRotate(root);
+        }
+
+        // left right rotation
+        if (balance > 1 && node.getData() > root.getLeft().getData()){
+            root.setLeft(leftRotate(root.getLeft()));
+            rightRotate(root);
+        }
+
+        // right left rotation
+        if (balance < -1 && node.getData() > root.getRight().getData()){
+            root.setRight(rightRotate(root.getRight()));
+            leftRotate(root);
+        }
     }
 
     public void insert(AVLNode node){
