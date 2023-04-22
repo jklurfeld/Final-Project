@@ -11,9 +11,10 @@ public class AVLTreeTester {
         System.out.println("Inserting 2 in tree...");
         tree.insert(new AVLNode(2));
         System.out.println("current tree: " + tree);
-        // System.out.println("Inserting 10 in tree...");
-        // tree.insert(new AVLNode(10));
-        // System.out.println("current tree: " + tree);
+        System.out.println("Inserting 10 in tree...");
+        tree.insert(new AVLNode(10));
+        System.out.println("current tree: " + tree);
+        System.out.println("Done testing AVLTree class.");
     }
 
     public static void main(String[] args){

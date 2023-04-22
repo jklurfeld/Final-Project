@@ -84,6 +84,9 @@ public class AVLTree extends BinSearchTree{
 
     public AVLNode rightRotate(AVLNode node){
         AVLNode x = node.getLeft();
+        if (node.equals(AVLroot)){
+            setRoot(x);
+        }
         AVLNode T2 = x.getRight();
         x.setRight(node);
         node.setLeft(T2);
@@ -94,6 +97,9 @@ public class AVLTree extends BinSearchTree{
 
     public AVLNode leftRotate(AVLNode x) {
         AVLNode y = x.getRight();
+        if (x.equals(AVLroot)){
+            setRoot(y);
+        }
         AVLNode T2 = y.getLeft();
         y.setLeft(x);
         x.setRight(T2);
@@ -102,8 +108,6 @@ public class AVLTree extends BinSearchTree{
         return y;
     }
 
-    // I think the rotations are probably working, but the toString is not working because of the class variable root is not being updated when necessary,
-    // so I think I need to add that as a special case as well
     public void insertR(AVLNode node, AVLNode root){
         if (root == null){
             setRoot(node);
