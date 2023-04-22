@@ -1,4 +1,6 @@
 public class AVLNode extends BinTreeNode{
+    // you can do class inheritance for the graphics and making the "geometric" classes so you don't need to do it for this class!!!
+
     int balanceFactor;
     private AVLNode left;
     private AVLNode right;
