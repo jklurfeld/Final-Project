@@ -28,6 +28,7 @@ public class BinSearchTree extends BinTree {
         insertR(node, getRoot());
     }
 
+    //is this going to work for the AVL tree because of the getRoot()?
     public ArrayList<Integer> traverseW(){
         ArrayList<Integer> list = new ArrayList<>();
         return traversev2(list, getRoot());

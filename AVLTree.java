@@ -1,3 +1,5 @@
+// QUESTION: does using an ArrayList for the BinSearchTree class count as a use of a java built in data structure?
+
 public class AVLTree extends BinSearchTree{
     // have to have this new variable because if I just try to use the old one, then Java can't guarantee that it will have fields like
     // height and balance factor or have children that are also AVLNodes
