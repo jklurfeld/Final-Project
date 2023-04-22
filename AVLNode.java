@@ -1,13 +1,22 @@
 public class AVLNode extends BinTreeNode{
-    // you can do class inheritance for the graphics and making the "geometric" classes so you don't need to do it for this class!!!
-
-    int balanceFactor;
+    // you can do class inheritance for the graphics and making the "geometric" classes so you don't need to do it for this class!!! but you did write that you were going to do it in your proposal
+    private int height;
+    private int balanceFactor;
     private AVLNode left;
     private AVLNode right;
 
     public AVLNode(int data){
         super(data);
         balanceFactor = 0;
+        height = 1;
+    }
+
+    public int getHeight(){
+        return height;
+    }
+
+    public void setHeight(int height){
+        this.height = height;
     }
 
     public AVLNode getLeft(){
