@@ -1,8 +1,9 @@
 // QUESTION: does using an ArrayList for the BinSearchTree class count as a use of a java built in data structure?
+// because I didn't write that for this assignmet, it was just already there and I am using it as an extension
 
 public class AVLTree extends BinSearchTree{
     // have to have this new variable because if I just try to use the old one, then Java can't guarantee that it will have fields like
-    // height and balance factor or have children that are also AVLNodes
+    // height and have children that are also AVLNodes
     AVLNode AVLroot;
 
     public AVLNode getRoot(){
@@ -39,30 +40,6 @@ public class AVLTree extends BinSearchTree{
         parent.setRight(child);
     }
 
-    // returns true if all of the balance factors are 0, 1, or -1, returns false otherwise
-    // public boolean updateBalanceFactorsR(AVLNode current){
-    //     if (current == null){
-    //         return true;
-    //     }
-    //     current.calculateBalance();
-    //     if (current.getBalanceFactor() > 1 || current.getBalanceFactor() < -1){
-    //         return false;
-    //     }
-    //     // maybe it should check if any of the balance factors are not 0, 1, or -1 right here and 
-    //     // return true/false so you don't have to traverse the tree again to check all of the balance factors
-    //     if (current.getLeft() != null){
-    //         updateBalanceFactorsR(current.getLeft());
-    //     }
-    //     if (current.getRight() != null){
-    //         updateBalanceFactorsR(current.getRight());
-    //     }
-    //     return true;
-    // }
-
-    // public void updateBalanceFactors(){
-    //     updateBalanceFactorsR(getRoot());
-    // }
-
     public int max(int a, int b){
         if (a > b){
             return a;
@@ -70,6 +47,7 @@ public class AVLTree extends BinSearchTree{
         return b;
     }
 
+    // is this function necesssary? maybe yes for saying if the node is null then return 0
     public int height(AVLNode node){
         if (node == null){
             return 0;
@@ -84,6 +62,7 @@ public class AVLTree extends BinSearchTree{
         return height(node.getLeft()) - height(node.getRight());
     }
 
+    // TODO: fix this function so it actually works
     public AVLNode rightRotate(AVLNode node){
         AVLNode x = node.getLeft();
         if (node.equals(AVLroot)){
@@ -92,11 +71,13 @@ public class AVLTree extends BinSearchTree{
         AVLNode T2 = x.getRight();
         x.setRight(node);
         node.setLeft(T2);
+
         node.setHeight(max(height(node.getLeft()), height(node.getRight())) + 1);
         x.setHeight(max(height(x.getLeft()), height(x.getRight())) + 1);
         return x;
     }
 
+    // TODO: fix this function
     public AVLNode leftRotate(AVLNode x) {
         AVLNode y = x.getRight();
         if (x.equals(AVLroot)){
@@ -132,8 +113,7 @@ public class AVLTree extends BinSearchTree{
             }
         }
         root.setHeight(1 + max(height(root.getLeft()), height(root.getRight())));
-        root.setBalanceFactor(getBalance(root));
-        int balance = root.getBalanceFactor();
+        int balance = getBalance(root);
 
         // right rotation
         if (balance > 1 && node.getData() < root.getLeft().getData()){
@@ -141,18 +121,18 @@ public class AVLTree extends BinSearchTree{
         }
 
         // left rotation
-        if (balance < -1 && node.getData() > root.getRight().getData()){
+        else if (balance < -1 && node.getData() > root.getRight().getData()){
             leftRotate(root);
         }
 
         // left right rotation
-        if (balance > 1 && node.getData() > root.getLeft().getData()){
+        else if (balance > 1 && node.getData() > root.getLeft().getData()){
             root.setLeft(leftRotate(root.getLeft()));
             rightRotate(root);
         }
 
         // right left rotation
-        if (balance < -1 && node.getData() > root.getRight().getData()){
+        else if (balance < -1 && node.getData() > root.getRight().getData()){
             root.setRight(rightRotate(root.getRight()));
             leftRotate(root);
         }
@@ -162,15 +142,16 @@ public class AVLTree extends BinSearchTree{
         insertR(node, getRoot());
     }
 
-    // updated toString() method so the balance factor of each node is also printed in curly braces
+    // updated toString() method so the balance factor of each node is also printed in curly braces 
+    // and the height is between two ! because I ran out of types of brackets
     public String toString(AVLNode root, int level){
         String result = "";
         if (isEmpty()){
             return "This tree is empty.";
         }
-        result += "(" + root.getData() + 
-        "[" + level + "]" + 
-        "{" + root.getBalanceFactor() + "}";
+        result += "(" + root.getData() + "[" + level + "]" 
+        + "{" + getBalance(root) + "}" 
+        + "!" + root.getHeight() + "!";
         if (root.getLeft() != null){
             result += toString(root.getLeft(), level+1) + "";
         }

@@ -16,7 +16,7 @@ public class AVLTreeDriver {
 
         AVLTree tree = new AVLTree();
         System.out.println("What value do you want at the root? (Enter an integer)");
-        tree.setRoot(new BinTreeNode(input.nextInt()));
+        tree.setRoot(new AVLNode(input.nextInt()));
         input.nextLine();
         // BinTreeNode crt = tree.getRoot();
 
