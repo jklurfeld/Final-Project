@@ -1,5 +1,5 @@
 // QUESTION: does using an ArrayList for the BinSearchTree class count as a use of a java built in data structure?
-// because I didn't write that for this assignmet, it was just already there and I am using it as an extension
+// because I didn't write that code for this assignment specifically, it was just already there and I am using it as an extension
 
 public class AVLTree extends BinSearchTree{
     // have to have this new variable because if I just try to use the old one, then Java can't guarantee that it will have fields like
@@ -23,7 +23,7 @@ public class AVLTree extends BinSearchTree{
 
     // I think my code isn't working without these because my left and rights of each node are different variables than in the original class
     // because they have to be AVLNodes. It seems like the only thing I'm extending is the field for data, which makes me think I shouldn't be 
-    // extending at all, but the problem is I said I would in my proposal
+    // extending at all
     public void addLeft(int data, AVLNode parent){
         parent.setLeft(new AVLNode(data));
     }
