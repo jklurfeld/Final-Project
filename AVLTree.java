@@ -116,6 +116,7 @@ public class AVLTree extends BinSearchTree{
         int balance = getBalance(root);
 
         // right rotation
+        // maybe you could change the numbers it looks for for balance so it looks at the node that is one node up and then rotates?
         if (balance > 1 && node.getData() < root.getLeft().getData()){
             System.out.println("performing right rotation...");
             rightRotate(root);
