@@ -113,10 +113,9 @@ public class AVLTree extends BinSearchTree{
         root.setHeight(1 + max(height(root.getLeft()), height(root.getRight())));
         int balance = getBalance(root);
         System.out.println("current root node: " + root.getData());
-        System.out.println("balance of current root node: " + balance);
+        System.out.println("current tree: " + this.toString());
 
         // right rotation
-        // maybe you could change the numbers it looks for for balance so it looks at the node that is one node up and then rotates?
         if (balance > 1 && node.getData() < root.getLeft().getData()){
             System.out.println("performing right rotation...");
             rightRotate(root);
@@ -127,8 +126,6 @@ public class AVLTree extends BinSearchTree{
             System.out.println("performing left rotation...");
             leftRotate(root);
         }
-
-        // traverse tree and find what's pointing to the old head and change it so it's pointing to the new head
 
         // left right rotation
         else if (balance > 1 && node.getData() > root.getLeft().getData()){
