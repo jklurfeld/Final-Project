@@ -5,14 +5,21 @@ public class AVLTreeTester {
         AVLTree tree = new AVLTree();
         tree.setRoot(new AVLNode(5));
         System.out.println("current tree: " + tree + "\n");
+
         System.out.println("Inserting 1 in tree...");
         tree.insert(new AVLNode(1));
         System.out.println("current tree: " + tree + "\n");
+
         System.out.println("Inserting 2 in tree...");
         tree.insert(new AVLNode(2));
         System.out.println("current tree: " + tree + "\n");
+
         System.out.println("Inserting 10 in tree...");
         tree.insert(new AVLNode(10));
+        System.out.println("current tree: " + tree + "\n");
+        
+        System.out.println("Inserting 15 in tree...");
+        tree.insert(new AVLNode(15));
         System.out.println("current tree: " + tree + "\n");
         System.out.println("Done testing AVLTree class.");
     }

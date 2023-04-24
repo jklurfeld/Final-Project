@@ -47,7 +47,6 @@ public class AVLTree extends BinSearchTree{
         return b;
     }
 
-    // is this function necesssary? maybe yes for saying if the node is null then return 0
     public int height(AVLNode node){
         if (node == null){
             return 0;
@@ -62,7 +61,6 @@ public class AVLTree extends BinSearchTree{
         return height(node.getLeft()) - height(node.getRight());
     }
 
-    // TODO: fix this function so it actually works
     public AVLNode rightRotate(AVLNode node){
         AVLNode x = node.getLeft();
         if (node.equals(AVLroot)){
@@ -77,7 +75,6 @@ public class AVLTree extends BinSearchTree{
         return x;
     }
 
-    // TODO: fix this function
     public AVLNode leftRotate(AVLNode x) {
         AVLNode y = x.getRight();
         if (x.equals(AVLroot)){
@@ -112,8 +109,11 @@ public class AVLTree extends BinSearchTree{
                 insertR(node, root.getLeft()); 
             }
         }
+
         root.setHeight(1 + max(height(root.getLeft()), height(root.getRight())));
         int balance = getBalance(root);
+        System.out.println("current root node: " + root.getData());
+        System.out.println("balance of current root node: " + balance);
 
         // right rotation
         // maybe you could change the numbers it looks for for balance so it looks at the node that is one node up and then rotates?
@@ -150,23 +150,21 @@ public class AVLTree extends BinSearchTree{
     }
 
     // updated toString() method so the balance factor of each node is also printed in curly braces 
-    // and the height is between two ! because I ran out of types of brackets
-    public String toString(AVLNode root, int level){
+    // and the height is between two []
+    public String toString(AVLNode root){
         String result = "";
         if (isEmpty()){
             return "This tree is empty.";
         }
-        result += "(" + root.getData() + "[" + level + "]" 
-        + "{" + getBalance(root) + "}" 
-        + "!" + root.getHeight() + "!";
+        result += "(" + root.getData() + "{" + getBalance(root) + "}" + "[" + root.getHeight() + "]";
         if (root.getLeft() != null){
-            result += toString(root.getLeft(), level+1) + "";
+            result += toString(root.getLeft()) + "";
         }
         else {
             result += "_ ";
         }
         if (root.getRight() != null){
-            result += toString(root.getRight(), level+1) + "";
+            result += toString(root.getRight()) + "";
         }
         else{
             result += "_ ";
@@ -175,6 +173,6 @@ public class AVLTree extends BinSearchTree{
     }
 
     public String toString(){
-        return toString(AVLroot, 0);
+        return toString(AVLroot);
     }
 }
