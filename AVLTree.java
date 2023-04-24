@@ -117,22 +117,28 @@ public class AVLTree extends BinSearchTree{
 
         // right rotation
         if (balance > 1 && node.getData() < root.getLeft().getData()){
+            System.out.println("performing right rotation...");
             rightRotate(root);
         }
 
         // left rotation
         else if (balance < -1 && node.getData() > root.getRight().getData()){
+            System.out.println("performing left rotation...");
             leftRotate(root);
         }
 
+        // traverse tree and find what's pointing to the old head and change it so it's pointing to the new head
+
         // left right rotation
         else if (balance > 1 && node.getData() > root.getLeft().getData()){
+            System.out.println("performing left right rotation...");
             root.setLeft(leftRotate(root.getLeft()));
             rightRotate(root);
         }
 
         // right left rotation
         else if (balance < -1 && node.getData() > root.getRight().getData()){
+            System.out.println("performing right left rotation...");
             root.setRight(rightRotate(root.getRight()));
             leftRotate(root);
         }
