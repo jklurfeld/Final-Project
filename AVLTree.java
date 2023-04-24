@@ -1,9 +1,4 @@
-// QUESTION: does using an ArrayList for the BinSearchTree class count as a use of a java built in data structure?
-// because I didn't write that code for this assignment specifically, it was just already there and I am using it as an extension
-
 public class AVLTree extends BinSearchTree{
-    // have to have this new variable because if I just try to use the old one, then Java can't guarantee that it will have fields like
-    // height and have children that are also AVLNodes
     AVLNode AVLroot;
 
     public AVLNode getRoot(){
@@ -21,9 +16,6 @@ public class AVLTree extends BinSearchTree{
         return false;
     }
 
-    // I think my code isn't working without these because my left and rights of each node are different variables than in the original class
-    // because they have to be AVLNodes. It seems like the only thing I'm extending is the field for data, which makes me think I shouldn't be 
-    // extending at all
     public void addLeft(int data, AVLNode parent){
         parent.setLeft(new AVLNode(data));
     }
@@ -61,7 +53,7 @@ public class AVLTree extends BinSearchTree{
         return height(node.getLeft()) - height(node.getRight());
     }
 
-    public AVLNode rightRotate(AVLNode node){
+    public AVLNode rootRightRotate(AVLNode node){
         AVLNode x = node.getLeft();
         if (node.equals(AVLroot)){
             setRoot(x);
@@ -75,7 +67,19 @@ public class AVLTree extends BinSearchTree{
         return x;
     }
 
-    public AVLNode leftRotate(AVLNode x) {
+    public void rightRotate(AVLNode p){
+        AVLNode x = p.getLeft();
+        AVLNode y = x.getLeft();
+        AVLNode b = y.getRight();
+        p.setLeft(y);
+        y.setRight(x);
+        x.setLeft(b);
+        p.setHeight(max(height(p.getLeft()), height(p.getRight())) + 1);
+        x.setHeight(max(height(x.getLeft()), height(x.getRight())) + 1);
+        y.setHeight(max(height(y.getLeft()), height(y.getRight())) + 1);
+    }
+
+    public AVLNode rootLeftRotate(AVLNode x) {
         AVLNode y = x.getRight();
         if (x.equals(AVLroot)){
             setRoot(y);
@@ -86,6 +90,18 @@ public class AVLTree extends BinSearchTree{
         x.setHeight(max(height(x.getLeft()), height(x.getRight())) + 1);
         y.setHeight(max(height(y.getLeft()), height(y.getRight())) + 1);
         return y;
+    }
+
+    public void leftRotate(AVLNode p){
+        AVLNode x = p.getRight();
+        AVLNode y = x.getRight();
+        AVLNode b = y.getLeft();
+        p.setRight(y);
+        y.setLeft(x);
+        x.setRight(b);
+        p.setHeight(max(height(p.getLeft()), height(p.getRight())) + 1);
+        x.setHeight(max(height(x.getLeft()), height(x.getRight())) + 1);
+        y.setHeight(max(height(y.getLeft()), height(y.getRight())) + 1);
     }
 
     public void insertR(AVLNode node, AVLNode root){
@@ -110,40 +126,83 @@ public class AVLTree extends BinSearchTree{
             }
         }
 
+        // start at the root of the tree again and then start going down and checking if your children are balanced
+
         root.setHeight(1 + max(height(root.getLeft()), height(root.getRight())));
-        int balance = getBalance(root);
-        System.out.println("current root node: " + root.getData());
-        System.out.println("current tree: " + this.toString());
+        // System.out.println("current tree: " + this.toString());
+        // int balance = getBalance(root);
+        // System.out.println("current root node: " + root.getData());
 
-        // right rotation
-        if (balance > 1 && node.getData() < root.getLeft().getData()){
-            System.out.println("performing right rotation...");
-            rightRotate(root);
-        }
+        // // right rotation
+        // if (balance > 1 && node.getData() < root.getLeft().getData()){
+        //     System.out.println("performing right rotation...");
+        //     rightRotate(root);
+        // }
 
-        // left rotation
-        else if (balance < -1 && node.getData() > root.getRight().getData()){
-            System.out.println("performing left rotation...");
-            leftRotate(root);
-        }
+        // // left rotation
+        // else if (balance < -1 && node.getData() > root.getRight().getData()){
+        //     System.out.println("performing left rotation...");
+        //     leftRotate(root);
+        // }
 
-        // left right rotation
-        else if (balance > 1 && node.getData() > root.getLeft().getData()){
-            System.out.println("performing left right rotation...");
-            root.setLeft(leftRotate(root.getLeft()));
-            rightRotate(root);
-        }
+        // // left right rotation
+        // else if (balance > 1 && node.getData() > root.getLeft().getData()){
+        //     System.out.println("performing left right rotation...");
+        //     root.setLeft(leftRotate(root.getLeft()));
+        //     rightRotate(root);
+        // }
 
-        // right left rotation
-        else if (balance < -1 && node.getData() > root.getRight().getData()){
-            System.out.println("performing right left rotation...");
-            root.setRight(rightRotate(root.getRight()));
-            leftRotate(root);
-        }
+        // // right left rotation
+        // else if (balance < -1 && node.getData() > root.getRight().getData()){
+        //     System.out.println("performing right left rotation...");
+        //     root.setRight(rightRotate(root.getRight()));
+        //     leftRotate(root);
+        // }
     }
 
     public void insert(AVLNode node){
+        // insert the new node
         insertR(node, getRoot());
+        System.out.println("Tree after insertion but before rotations: " + this.toString());
+
+        int rootBalance = getBalance(AVLroot);
+        if (rootBalance > 1){
+            if (AVLroot.getLeft().getLeft() != null){
+                rootRightRotate(AVLroot);
+            }
+            else {
+                AVLroot.setLeft(rootLeftRotate(AVLroot.getLeft()));
+                rootRightRotate(AVLroot);
+            }
+        }
+        else if (rootBalance < -1){
+            if (AVLroot.getRight().getRight() != null){
+                rootLeftRotate(AVLroot);
+            }
+            else {
+                AVLroot.setRight(rootRightRotate(AVLroot.getRight()));
+                leftRotate(AVLroot);
+            }
+        }
+
+        // check the balances and perform rotations
+        performRotations(AVLroot);
+    }
+
+    public void performRotations(AVLNode root){
+        if (root.getRight() != null){
+            if (getBalance(root.getRight()) < -1){
+                // check if it's a left or a right left rotation
+                leftRotate(root);
+            }
+            performRotations(root.getRight());
+        }
+        if (root.getLeft() != null){
+            if (getBalance(root.getLeft()) > 1){
+                rightRotate(root);
+            }
+            performRotations(root.getLeft());
+        }
     }
 
     // updated toString() method so the balance factor of each node is also printed in curly braces 

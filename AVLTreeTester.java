@@ -21,6 +21,15 @@ public class AVLTreeTester {
         System.out.println("Inserting 15 in tree...");
         tree.insert(new AVLNode(15));
         System.out.println("current tree: " + tree + "\n");
+
+        System.out.println("Inserting 0 in tree...");
+        tree.insert(new AVLNode(0));
+        System.out.println("current tree: " + tree + "\n");
+
+        System.out.println("Inserting -1 in tree...");
+        tree.insert(new AVLNode(-1));
+        System.out.println("current tree: " + tree + "\n");
+
         System.out.println("Done testing AVLTree class.");
     }
 
