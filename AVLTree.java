@@ -17,7 +17,7 @@ public class AVLTree extends BinSearchTree{
         return false;
     }
 
-    // I thought I only needed these functions for testing, but for some reason my tester code is breaking without them
+    // I thought I only needed these functions for testing and then I didn't use them for testing, but for some reason my tester code is breaking without them
     public void addLeft(int data, AVLNode parent){
         parent.setLeft(new AVLNode(data));
     }
@@ -235,6 +235,8 @@ public class AVLTree extends BinSearchTree{
     }
 
     // you have to return parent of the node to be deleted for the same reason as insertion
+    // maybe you could make checks in the delete function itself if the node to be deleted is the root instead of doing it within the search function
+    // if you return a node, then you have to do another check in the delete function if the node you really want to delete is the right or left child
     public AVLNode searchR(int data, AVLNode root){
         if (root == null){
             return null;

@@ -1,10 +1,18 @@
 public class AVLTreeTester {
     public static void classTester(){
         System.out.println("==== TESTING AVLTree CLASS ====");
-        System.out.println("Creating new tree and setting root to 5...");
+        System.out.println("Creating new tree...");
         AVLTree tree = new AVLTree();
-        tree.setRoot(new AVLNode(5));
+        System.out.println("Result of isEmpty(): " + tree.isEmpty());
+        System.out.println("Result of getRoot(): " + tree.getRoot());
         System.out.println("current tree: " + tree + "\n");
+
+        tree.setRoot(new AVLNode(5));
+        System.out.println("Result of isEmpty(): " + tree.isEmpty());
+        System.out.println("Result of getRoot(): " + tree.getRoot());
+        System.out.println("current tree: " + tree + "\n");
+
+        // TODO: test max, height, and getBalance?
 
         System.out.println("Inserting 1 in tree...");
         tree.insert(new AVLNode(1));
@@ -250,7 +258,7 @@ public class AVLTreeTester {
     }
 
     public static void main(String[] args){
-        // classTester();
+        classTester();
         // rootRightRotateTester();
         // rootLeftRotateTester();
         // rootRightLeftRotateTester();
@@ -259,6 +267,6 @@ public class AVLTreeTester {
         // leftRotateTester();
         // leftRightRotateTester();
         // rightLeftRotateTester();
-        searchTester();
+        // searchTester();
     }
 }
