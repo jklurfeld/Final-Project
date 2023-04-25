@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class AVLTree extends BinSearchTree{
     AVLNode AVLroot;
 
@@ -188,7 +186,7 @@ public class AVLTree extends BinSearchTree{
             else {
                 System.out.println("Performing root right left rotation...");
                 AVLroot.setRight(rootRightRotate(AVLroot.getRight()));
-                leftRotate(AVLroot);
+                rootLeftRotate(AVLroot);
             }
         }
 
