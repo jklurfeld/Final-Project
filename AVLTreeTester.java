@@ -162,7 +162,7 @@ public class AVLTreeTester {
     }
 
     public static void leftRightRotateTester(){
-        System.out.println("==== Testing leftRightRotate method ====");
+        System.out.println("==== Testing leftRightRotate function ====");
         System.out.println("Creating new tree and setting root to 10...");
         AVLTree tree = new AVLTree();
         tree.setRoot(new AVLNode(10));
@@ -188,7 +188,37 @@ public class AVLTreeTester {
         tree.insert(new AVLNode(3));
         System.out.println("current tree: " + tree + "\n");
 
-        System.out.println("Done testing leftRightRotate method.");
+        System.out.println("Done testing leftRightRotate function.");
+    }
+
+    public static void rightLeftRotateTester(){
+        System.out.println("==== Testing rightLeftRotate function ====");
+        System.out.println("Creating new tree and setting root to 10...");
+        AVLTree tree = new AVLTree();
+        tree.setRoot(new AVLNode(10));
+        System.out.println("current tree: " + tree + "\n");
+
+        System.out.println("Inserting 5 in the tree...");
+        tree.insert(new AVLNode(5));
+        System.out.println("current tree: " + tree + "\n");
+
+        System.out.println("Inserting 12 in the tree...");
+        tree.insert(new AVLNode(12));
+        System.out.println("current tree: " + tree + "\n");
+
+        System.out.println("Inserting 2 in the tree...");
+        tree.insert(new AVLNode(2));
+        System.out.println("current tree: " + tree + "\n");
+
+        System.out.println("Inserting 15 in the tree...");
+        tree.insert(new AVLNode(15));
+        System.out.println("current tree: " + tree + "\n");
+
+        System.out.println("Inserting 13 in the tree...");
+        tree.insert(new AVLNode(13));
+        System.out.println("current tree: " + tree + "\n");
+
+        System.out.println("Done testing leftRightRotate function.");
     }
 
     public static void main(String[] args){
@@ -199,6 +229,7 @@ public class AVLTreeTester {
         // rootLeftRightRotateTester();
         // rightRotateTester();
         // leftRotateTester();
-        leftRightRotateTester();
+        // leftRightRotateTester();
+        rightLeftRotateTester();
     }
 }

@@ -106,7 +106,31 @@ public class AVLTree extends BinSearchTree{
         y.setHeight(max(height(y.getLeft()), height(y.getRight())) + 1);
     }
 
-    // make separate function for left right rotation?
+    public AVLNode leftRightRotate(AVLNode p){
+        AVLNode x = p.getLeft();
+        AVLNode y = x.getRight();
+        AVLNode b = y.getLeft();
+        p.setLeft(y);
+        y.setLeft(x);
+        x.setRight(b);
+        p.setHeight(max(height(p.getLeft()), height(p.getRight())) + 1);
+        x.setHeight(max(height(x.getLeft()), height(x.getRight())) + 1);
+        y.setHeight(max(height(y.getLeft()), height(y.getRight())) + 1);
+        return y;
+    }
+
+    public AVLNode rightLeftRotate(AVLNode p){
+        AVLNode x = p.getRight();
+        AVLNode y = x.getLeft();
+        AVLNode b = y.getRight();
+        p.setRight(y);
+        y.setRight(x);
+        x.setLeft(b);
+        p.setHeight(max(height(p.getLeft()), height(p.getRight())) + 1);
+        x.setHeight(max(height(x.getLeft()), height(x.getRight())) + 1);
+        y.setHeight(max(height(y.getLeft()), height(y.getRight())) + 1);
+        return y;
+    }
 
     public void insertR(AVLNode node, AVLNode root){
         if (root == null){
@@ -207,7 +231,7 @@ public class AVLTree extends BinSearchTree{
                 }
                 else {
                     System.out.println("Performing right left rotation...");
-                    rightRotate(root.getRight().getRight());
+                    root.getRight().setRight(rightLeftRotate(root.getRight()));
                     leftRotate(root);
                 }
                 // check if it's a left or a right left rotation
@@ -223,7 +247,7 @@ public class AVLTree extends BinSearchTree{
                 }
                 else {
                     System.out.println("Performing left right rotation...");
-                    leftRotate(root.getLeft().getLeft());
+                    root.getLeft().setLeft(leftRightRotate(root.getLeft()));
                     rightRotate(root);
                 }
             }
