@@ -1,6 +1,7 @@
 public class AVLTree extends BinSearchTree{
     AVLNode AVLroot;
 
+    // TODO: write testers for all these getters, setters, and helper methods
     public AVLNode getRoot(){
         return AVLroot;
     }
@@ -16,6 +17,7 @@ public class AVLTree extends BinSearchTree{
         return false;
     }
 
+    // I thought I only needed this functions for testing, but for some reason my tester code is breaking without them
     public void addLeft(int data, AVLNode parent){
         parent.setLeft(new AVLNode(data));
     }
@@ -103,6 +105,8 @@ public class AVLTree extends BinSearchTree{
         x.setHeight(max(height(x.getLeft()), height(x.getRight())) + 1);
         y.setHeight(max(height(y.getLeft()), height(y.getRight())) + 1);
     }
+
+    // make separate function for left right rotation?
 
     public void insertR(AVLNode node, AVLNode root){
         if (root == null){
@@ -197,13 +201,13 @@ public class AVLTree extends BinSearchTree{
     public void performRotations(AVLNode root){
         if (root.getRight() != null){
             if (getBalance(root.getRight()) < -1){
-                if (root.getRight().getRight() != null){
+                if (root.getRight().getRight().getRight() != null){
                     System.out.println("Performing left rotation...");
                     leftRotate(root);
                 }
                 else {
                     System.out.println("Performing right left rotation...");
-                    rootRightRotate(root.getRight());
+                    rightRotate(root.getRight().getRight());
                     leftRotate(root);
                 }
                 // check if it's a left or a right left rotation
@@ -213,13 +217,13 @@ public class AVLTree extends BinSearchTree{
         }
         if (root.getLeft() != null){
             if (getBalance(root.getLeft()) > 1){
-                if (root.getLeft().getLeft() != null){
+                if (root.getLeft().getLeft().getLeft() != null){
                     System.out.println("Performing right rotation...");
                     rightRotate(root);
                 }
                 else {
                     System.out.println("Performing left right rotation...");
-                    rootLeftRotate(root.getLeft());
+                    leftRotate(root.getLeft().getLeft());
                     rightRotate(root);
                 }
             }

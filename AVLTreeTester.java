@@ -101,13 +101,104 @@ public class AVLTreeTester {
         System.out.println("Done testing rootLeftRightRotate method.");
     }
 
-    
+    public static void rightRotateTester(){
+        System.out.println("==== Testing rightRotate method ====");
+        System.out.println("Creating new tree and setting root to 10...");
+        AVLTree tree = new AVLTree();
+        tree.setRoot(new AVLNode(10));
+        System.out.println("current tree: " + tree + "\n");
+
+        System.out.println("Inserting 5 in the tree...");
+        tree.insert(new AVLNode(5));
+        System.out.println("current tree: " + tree + "\n");
+
+        System.out.println("Inserting 12 in the tree...");
+        tree.insert(new AVLNode(12));
+        System.out.println("current tree: " + tree + "\n");
+
+        System.out.println("Inserting 2 in the tree...");
+        tree.insert(new AVLNode(2));
+        System.out.println("current tree: " + tree + "\n");
+
+        System.out.println("Inserting 15 in the tree...");
+        tree.insert(new AVLNode(15));
+        System.out.println("current tree: " + tree + "\n");
+
+        System.out.println("Inserting 1 in the tree...");
+        tree.insert(new AVLNode(1));
+        System.out.println("current tree: " + tree + "\n");
+
+        System.out.println("Done testing rightRotate method.");
+    }
+
+    public static void leftRotateTester(){
+        System.out.println("==== Testing leftRotate method ====");
+        System.out.println("Creating new tree and setting root to 10...");
+        AVLTree tree = new AVLTree();
+        tree.setRoot(new AVLNode(10));
+        System.out.println("current tree: " + tree + "\n");
+
+        System.out.println("Inserting 5 in the tree...");
+        tree.insert(new AVLNode(5));
+        System.out.println("current tree: " + tree + "\n");
+
+        System.out.println("Inserting 12 in the tree...");
+        tree.insert(new AVLNode(12));
+        System.out.println("current tree: " + tree + "\n");
+
+        System.out.println("Inserting 2 in the tree...");
+        tree.insert(new AVLNode(2));
+        System.out.println("current tree: " + tree + "\n");
+
+        System.out.println("Inserting 15 in the tree...");
+        tree.insert(new AVLNode(15));
+        System.out.println("current tree: " + tree + "\n");
+
+        System.out.println("Inserting 20 in the tree...");
+        tree.insert(new AVLNode(20));
+        System.out.println("current tree: " + tree + "\n");
+
+        System.out.println("Done testing leftRotate method.");
+    }
+
+    public static void leftRightRotateTester(){
+        System.out.println("==== Testing leftRightRotate method ====");
+        System.out.println("Creating new tree and setting root to 10...");
+        AVLTree tree = new AVLTree();
+        tree.setRoot(new AVLNode(10));
+        System.out.println("current tree: " + tree + "\n");
+
+        System.out.println("Inserting 5 in the tree...");
+        tree.insert(new AVLNode(5));
+        System.out.println("current tree: " + tree + "\n");
+
+        System.out.println("Inserting 12 in the tree...");
+        tree.insert(new AVLNode(12));
+        System.out.println("current tree: " + tree + "\n");
+
+        System.out.println("Inserting 2 in the tree...");
+        tree.insert(new AVLNode(2));
+        System.out.println("current tree: " + tree + "\n");
+
+        System.out.println("Inserting 15 in the tree...");
+        tree.insert(new AVLNode(15));
+        System.out.println("current tree: " + tree + "\n");
+
+        System.out.println("Inserting 3 in the tree...");
+        tree.insert(new AVLNode(3));
+        System.out.println("current tree: " + tree + "\n");
+
+        System.out.println("Done testing leftRightRotate method.");
+    }
 
     public static void main(String[] args){
         // classTester();
         // rootRightRotateTester();
         // rootLeftRotateTester();
         // rootRightLeftRotateTester();
-        rootLeftRightRotateTester();
+        // rootLeftRightRotateTester();
+        // rightRotateTester();
+        // leftRotateTester();
+        leftRightRotateTester();
     }
 }
