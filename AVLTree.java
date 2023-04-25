@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class AVLTree extends BinSearchTree{
     AVLNode AVLroot;
 
@@ -168,18 +170,23 @@ public class AVLTree extends BinSearchTree{
         int rootBalance = getBalance(AVLroot);
         if (rootBalance > 1){
             if (AVLroot.getLeft().getLeft() != null){
+                System.out.println("Performing root right rotation...");
                 rootRightRotate(AVLroot);
             }
             else {
+                // left right rotation
+                System.out.println("Performing root left right rotation...");
                 AVLroot.setLeft(rootLeftRotate(AVLroot.getLeft()));
                 rootRightRotate(AVLroot);
             }
         }
         else if (rootBalance < -1){
             if (AVLroot.getRight().getRight() != null){
+                System.out.println("Performing root left rotation...");
                 rootLeftRotate(AVLroot);
             }
             else {
+                System.out.println("Performing root right left rotation...");
                 AVLroot.setRight(rootRightRotate(AVLroot.getRight()));
                 leftRotate(AVLroot);
             }
@@ -192,14 +199,31 @@ public class AVLTree extends BinSearchTree{
     public void performRotations(AVLNode root){
         if (root.getRight() != null){
             if (getBalance(root.getRight()) < -1){
+                if (root.getRight().getRight() != null){
+                    System.out.println("Performing left rotation...");
+                    leftRotate(root);
+                }
+                else {
+                    System.out.println("Performing right left rotation...");
+                    rootRightRotate(root.getRight());
+                    leftRotate(root);
+                }
                 // check if it's a left or a right left rotation
-                leftRotate(root);
+                // leftRotate(root);
             }
             performRotations(root.getRight());
         }
         if (root.getLeft() != null){
             if (getBalance(root.getLeft()) > 1){
-                rightRotate(root);
+                if (root.getLeft().getLeft() != null){
+                    System.out.println("Performing right rotation...");
+                    rightRotate(root);
+                }
+                else {
+                    System.out.println("Performing left right rotation...");
+                    rootLeftRotate(root.getLeft());
+                    rightRotate(root);
+                }
             }
             performRotations(root.getLeft());
         }
