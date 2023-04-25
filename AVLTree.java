@@ -17,7 +17,7 @@ public class AVLTree extends BinSearchTree{
         return false;
     }
 
-    // I thought I only needed this functions for testing, but for some reason my tester code is breaking without them
+    // I thought I only needed these functions for testing, but for some reason my tester code is breaking without them
     public void addLeft(int data, AVLNode parent){
         parent.setLeft(new AVLNode(data));
     }
@@ -157,35 +157,6 @@ public class AVLTree extends BinSearchTree{
         // start at the root of the tree again and then start going down and checking if your children are balanced
 
         root.setHeight(1 + max(height(root.getLeft()), height(root.getRight())));
-        // System.out.println("current tree: " + this.toString());
-        // int balance = getBalance(root);
-        // System.out.println("current root node: " + root.getData());
-
-        // // right rotation
-        // if (balance > 1 && node.getData() < root.getLeft().getData()){
-        //     System.out.println("performing right rotation...");
-        //     rightRotate(root);
-        // }
-
-        // // left rotation
-        // else if (balance < -1 && node.getData() > root.getRight().getData()){
-        //     System.out.println("performing left rotation...");
-        //     leftRotate(root);
-        // }
-
-        // // left right rotation
-        // else if (balance > 1 && node.getData() > root.getLeft().getData()){
-        //     System.out.println("performing left right rotation...");
-        //     root.setLeft(leftRotate(root.getLeft()));
-        //     rightRotate(root);
-        // }
-
-        // // right left rotation
-        // else if (balance < -1 && node.getData() > root.getRight().getData()){
-        //     System.out.println("performing right left rotation...");
-        //     root.setRight(rightRotate(root.getRight()));
-        //     leftRotate(root);
-        // }
     }
 
     public void insert(AVLNode node){
@@ -253,6 +224,35 @@ public class AVLTree extends BinSearchTree{
             }
             performRotations(root.getLeft());
         }
+    }
+
+    public void delete(int data){
+        AVLNode toBeDeleted = search(data);
+        if (toBeDeleted == null){
+            return;
+        }
+
+    }
+
+    // you have to return parent of the node to be deleted for the same reason as insertion
+    public AVLNode searchR(int data, AVLNode root){
+        if (root == null){
+            return null;
+        }
+        // what do you do if you want to delete the root node?
+        if (root.getData() == data){
+            return root;
+        }
+        else if (root.getData() < data){
+            return searchR(data, root.getRight());
+        }
+        else {
+            return searchR(data, root.getLeft());
+        }
+    }
+
+    public AVLNode search(int data){
+        return searchR(data, AVLroot);
     }
 
     // updated toString() method so the balance factor of each node is also printed in curly braces 

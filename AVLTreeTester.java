@@ -221,6 +221,34 @@ public class AVLTreeTester {
         System.out.println("Done testing leftRightRotate function.");
     }
 
+    public static void searchTester(){
+        System.out.println("==== Testing search method ====");
+        System.out.println("Creating new tree and setting root to 10...");
+        AVLTree tree = new AVLTree();
+        tree.setRoot(new AVLNode(10));
+
+        System.out.println("Inserting 5 in the tree...");
+        tree.insert(new AVLNode(5));
+
+        System.out.println("Inserting 12 in the tree...");
+        tree.insert(new AVLNode(12));
+
+        System.out.println("Inserting 2 in the tree...");
+        tree.insert(new AVLNode(2));
+
+        System.out.println("Inserting 15 in the tree...");
+        tree.insert(new AVLNode(15));
+        System.out.println("current tree: " + tree + "\n");
+
+        System.out.println("Searching for 2 in the tree...");
+        System.out.println("Result of searching for 2: " + tree.search(2).getData());
+
+        System.out.println("Searching for 20 in the tree...");
+        System.out.println("Result of searching for 2: " + tree.search(20));
+
+        System.out.println("Done testing search method.");
+    }
+
     public static void main(String[] args){
         // classTester();
         // rootRightRotateTester();
@@ -230,6 +258,7 @@ public class AVLTreeTester {
         // rightRotateTester();
         // leftRotateTester();
         // leftRightRotateTester();
-        rightLeftRotateTester();
+        // rightLeftRotateTester();
+        searchTester();
     }
 }
