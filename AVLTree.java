@@ -164,6 +164,7 @@ public class AVLTree extends BinSearchTree{
         insertR(node, getRoot());
         System.out.println("Tree after insertion but before rotations: " + this.toString());
 
+        // maybe you should put all of these in the perform rotations function so you can use it after you delete a node?
         int rootBalance = getBalance(AVLroot);
         if (rootBalance > 1){
             if (AVLroot.getLeft().getLeft() != null){
@@ -226,12 +227,30 @@ public class AVLTree extends BinSearchTree{
         }
     }
 
-    public void delete(int data){
-        AVLNode toBeDeleted = search(data);
-        if (toBeDeleted == null){
-            return;
+    public void deleteR(AVLNode root, int data){
+        // AVLNode toBeDeleted = search(data);
+        // if (toBeDeleted == null){
+        //     return;
+        // }
+        if (root.getData() == data){
+            
         }
+        else if (root.getLeft().getData() == data){
 
+        }
+        else if (root.getRight().getData() == data){
+
+        }
+        else if (data < root.getData()){
+            deleteR(root.getLeft(), data);
+        }
+        else if (data > root.getData()){
+            deleteR(root.getRight(), data);
+        }
+    }
+
+    public void delete(int data){
+        deleteR(getRoot(), data); 
     }
 
     // you have to return parent of the node to be deleted for the same reason as insertion
