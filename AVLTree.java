@@ -232,14 +232,34 @@ public class AVLTree extends BinSearchTree{
         // if (toBeDeleted == null){
         //     return;
         // }
+
+        // TODO: remember to update the heights of the nodes when you manipulate them!
+
+        // myabe this case should be in the wrapper?
         if (root.getData() == data){
-            
+            if (root.getLeft() == null && root.getRight() == null){
+                AVLroot = null;
+            }
+            else if (root.getLeft() == null && root.getRight() != null){
+                // if the root only has one child, then that child will not have any children
+                AVLroot = root.getRight();
+            }
+            else if (root.getLeft() != null && root.getRight() == null){
+                AVLroot = root.getLeft();
+            }
+            else {
+                // maybe you should have a function that does the stuff required for when a node to be deleted has two children
+                // and then here you'd just call that function and update the root
+
+                // maybe you should just have function for all of these cases?
+            }
+            return;
         }
         else if (root.getLeft().getData() == data){
-
+            return;
         }
         else if (root.getRight().getData() == data){
-
+            return;
         }
         else if (data < root.getData()){
             deleteR(root.getLeft(), data);
