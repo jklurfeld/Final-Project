@@ -276,25 +276,25 @@ public class AVLTree extends BinSearchTree{
     // you have to return parent of the node to be deleted for the same reason as insertion
     // maybe you could make checks in the delete function itself if the node to be deleted is the root instead of doing it within the search function
     // if you return a node, then you have to do another check in the delete function if the node you really want to delete is the right or left child
-    public AVLNode searchR(int data, AVLNode root){
-        if (root == null){
-            return null;
-        }
-        // what do you do if you want to delete the root node?
-        if (root.getData() == data){
-            return root;
-        }
-        else if (root.getData() < data){
-            return searchR(data, root.getRight());
-        }
-        else {
-            return searchR(data, root.getLeft());
-        }
-    }
+    // public AVLNode searchR(int data, AVLNode root){
+    //     if (root == null){
+    //         return null;
+    //     }
+    //     // what do you do if you want to delete the root node?
+    //     if (root.getData() == data){
+    //         return root;
+    //     }
+    //     else if (root.getData() < data){
+    //         return searchR(data, root.getRight());
+    //     }
+    //     else {
+    //         return searchR(data, root.getLeft());
+    //     }
+    // }
 
-    public AVLNode search(int data){
-        return searchR(data, AVLroot);
-    }
+    // public AVLNode search(int data){
+    //     return searchR(data, AVLroot);
+    // }
 
     // updated toString() method so the balance factor of each node is also printed in curly braces 
     // and the height is between two []
