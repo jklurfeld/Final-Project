@@ -268,6 +268,28 @@ public class AVLTreeTester {
         System.out.println("Deleting root...");
         tree.delete(10);
         System.out.println("current tree: " + tree + "\n");
+
+        System.out.println("Testing deleting root when root has only a left child...");
+        System.out.println("Inserting 5 into the tree...");
+        tree.insert(new AVLNode(5));
+        System.out.println("current tree: " + tree + "\n");
+
+        System.out.println("Inserting 1 into the tree...");
+        tree.insert(new AVLNode(1));
+        System.out.println("current tree: " + tree + "\n");
+
+        System.out.println("Deleting root...");
+        tree.delete(5);
+        System.out.println("current tree: " + tree + "\n");
+
+        System.out.println("Testing deleting root when root only has a right child...");
+        System.out.println("Inserting 5 into the tree...");
+        tree.insert(new AVLNode(5));
+        System.out.println("current tree: " + tree + "\n");
+
+        System.out.println("Deleting root...");
+        tree.delete(1);
+        System.out.println("current tree: " + tree + "\n");
     }
 
     public static void main(String[] args){

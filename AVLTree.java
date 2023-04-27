@@ -273,6 +273,8 @@ public class AVLTree extends BinSearchTree{
         deleteR(getRoot(), data); 
     }
 
+    // to find the min you can just keep going to the left until you hit a null, you don't need a whole function
+
     // you have to return parent of the node to be deleted for the same reason as insertion
     // maybe you could make checks in the delete function itself if the node to be deleted is the root instead of doing it within the search function
     // if you return a node, then you have to do another check in the delete function if the node you really want to delete is the right or left child
