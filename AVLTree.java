@@ -199,13 +199,25 @@ public class AVLTree extends BinSearchTree{
         if (root.getRight() != null){
             if (getBalance(root.getRight()) < -1){
                 if (root.getRight().getRight().getRight() != null){
-                    System.out.println("Performing left rotation...");
+                    System.out.println("Performing left rotation in right subtree...");
                     leftRotate(root);
                 }
                 else {
-                    System.out.println("Performing right left rotation...");
+                    System.out.println("Performing right left rotation in right subtree...");
                     root.getRight().setRight(rightLeftRotate(root.getRight()));
                     leftRotate(root);
+                }
+            }
+            if (getBalance(root.getRight()) > 1){
+                if (root.getRight().getLeft().getLeft() != null){
+                    System.out.println("Performing right rotation in right subtree...");
+                    // this isn't working because your "right rotate" function only works for when the rotation needs to be in the left subtree
+                    rightRotate(root);
+                }
+                else {
+                    System.out.println("Performing left right rotation in right subtree...");
+                    root.getLeft().setLeft(leftRightRotate(root.getLeft()));
+                    rightRotate(root);
                 }
             }
             performRotations(root.getRight());
@@ -213,13 +225,24 @@ public class AVLTree extends BinSearchTree{
         if (root.getLeft() != null){
             if (getBalance(root.getLeft()) > 1){
                 if (root.getLeft().getLeft().getLeft() != null){
-                    System.out.println("Performing right rotation...");
+                    System.out.println("Performing right rotation in left subtree...");
                     rightRotate(root);
                 }
                 else {
-                    System.out.println("Performing left right rotation...");
+                    System.out.println("Performing left right rotation in left subtree...");
                     root.getLeft().setLeft(leftRightRotate(root.getLeft()));
                     rightRotate(root);
+                }
+            }
+            if (getBalance(root.getLeft()) < -1){
+                if (root.getLeft().getRight().getRight() != null){
+                    System.out.println("Performing left rotation in left subtree...");
+                    leftRotate(root);
+                }
+                else {
+                    System.out.println("Performing right left rotation in left subtree...");
+                    root.getRight().setRight(rightLeftRotate(root.getRight()));
+                    leftRotate(root);
                 }
             }
             performRotations(root.getLeft());
@@ -342,6 +365,7 @@ public class AVLTree extends BinSearchTree{
     }
 
     // to find the min you can just keep going to the left until you hit a null, you don't need a whole function
+    // double check: I think this is going to work because I don't there are going to be any cases where there could be a subtree that needs to be rotated
     public AVLNode findMin(AVLNode root){
         AVLNode min = root;
         while (root.getLeft() != null){
