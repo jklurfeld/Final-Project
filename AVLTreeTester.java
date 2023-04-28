@@ -266,6 +266,13 @@ public class AVLTreeTester {
         System.out.println("Deleting root...");
         tree.delete(1);
         System.out.println("current tree: " + tree + "\n");
+
+        // TODO: test these two cases
+        System.out.println("Testing deleting root when it has two children...");
+
+        System.out.println("Testing deleting root when it has two subtrees...");
+
+        System.out.println("Done testing the deletion of the root.");
     }
 
     public static void deletionOfLeafTester(){
@@ -311,7 +318,7 @@ public class AVLTreeTester {
     }
 
     public static void deletionOfNodeWithOneChildTester(){
-        
+
     }
 
     public static void main(String[] args){
@@ -324,8 +331,7 @@ public class AVLTreeTester {
         // leftRotateTester();
         // leftRightRotateTester();
         // rightLeftRotateTester();
-        // searchTester();
-        // deleteRootTester();
-        // deletionOfLeafTester();
+        deleteRootTester();
+        deletionOfLeafTester();
     }
 }
