@@ -226,7 +226,7 @@ public class AVLTreeTester {
         tree.insert(new AVLNode(13));
         System.out.println("current tree: " + tree + "\n");
 
-        System.out.println("Done testing leftRightRotate function.");
+        System.out.println("Done testing rightLeftRotate function.");
     }
 
     // public static void searchTester(){
@@ -292,6 +292,52 @@ public class AVLTreeTester {
         System.out.println("current tree: " + tree + "\n");
     }
 
+    public static void deletionOfLeafTester(){
+        System.out.println("==== TESTING THE DELETION OF A LEAF ====");
+        System.out.println("Creating new tree, setting root to 10, and inserting 1 and 20...");
+        AVLTree tree = new AVLTree();
+        tree.setRoot(new AVLNode(10));
+        tree.insert(new AVLNode(1));
+        tree.insert(new AVLNode(20));
+        System.out.println("current tree: " + tree + "\n");
+
+        System.out.println("Deleting 1...");
+        tree.delete(1);
+        System.out.println("current tree: " + tree + "\n");
+
+        System.out.println("Deleting 20...");
+        tree.delete(20);
+        System.out.println("current tree: " + tree + "\n");
+
+        System.out.println("Inserting 15 in the tree...");
+        tree.insert(new AVLNode(15));
+        System.out.println("current tree: " + tree + "\n");
+
+        System.out.println("Deleting 15...");
+        tree.delete(15);
+        System.out.println("current tree: " + tree + "\n");
+
+        System.out.println("Inserting 17, 13, 12, 18, 5, and 11 in the tree...");
+        tree.insert(new AVLNode(17));
+        tree.insert(new AVLNode(13));
+        tree.insert(new AVLNode(12));
+        tree.insert(new AVLNode(18));
+        tree.insert(new AVLNode(5));
+        tree.insert(new AVLNode(11));
+        System.out.println("current tree: " + tree + "\n");
+
+        //if you switch this to 5, then you'd be testing if the tree can rebalance itself after deleting a node
+        System.out.println("Deleting 5...");
+        tree.delete(5);
+        System.out.println("current tree: " + tree + "\n");
+
+        System.out.println("Done testing the deletion of a leaf.");
+    }
+
+    public static void deletionOfNodeWithOneChildTester(){
+
+    }
+
     public static void main(String[] args){
         // classTester();
         // rootRightRotateTester();
@@ -301,8 +347,9 @@ public class AVLTreeTester {
         // rightRotateTester();
         // leftRotateTester();
         // leftRightRotateTester();
-        // rightLeftRotateTester();
+        rightLeftRotateTester();
         // searchTester();
-        deleteRootTester();
+        // deleteRootTester();
+        deletionOfLeafTester();
     }
 }

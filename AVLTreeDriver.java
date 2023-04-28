@@ -4,6 +4,7 @@ public class AVLTreeDriver {
     public static void printOptions(){
         System.out.println("OPTIONS MENU:");
         System.out.println("- insert");
+        System.out.println("- delete");
         System.out.println("- sort");
         System.out.println("- print options");
         System.out.println("- print tree");
@@ -26,8 +27,13 @@ public class AVLTreeDriver {
 
             switch(option){
                 case "insert":
-                    System.out.println("Insert the data of the new node:");
+                    System.out.println("insert the data of the new node:");
                     tree.insert(new AVLNode(input.nextInt()));
+                    input.nextLine();
+                    break;
+                case "delete":
+                    System.out.println("insert the data of the node to be deleted:");
+                    tree.delete(input.nextInt());
                     input.nextLine();
                     break;
                 case "sort":
