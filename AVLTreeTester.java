@@ -140,6 +140,7 @@ public class AVLTreeTester {
     }
 
     public static void leftRotateTester(){
+        // TODO: add testers for left rotating in left subtree and right rotating in right subtree? already tested this in driver-- do I need hardcoded example?
         System.out.println("==== Testing leftRotate method ====");
         System.out.println("Creating new tree and setting root to 10...");
         AVLTree tree = new AVLTree();
@@ -310,7 +311,7 @@ public class AVLTreeTester {
     }
 
     public static void deletionOfNodeWithOneChildTester(){
-
+        
     }
 
     public static void main(String[] args){
@@ -322,7 +323,7 @@ public class AVLTreeTester {
         // rightRotateTester();
         // leftRotateTester();
         // leftRightRotateTester();
-        rightLeftRotateTester();
+        // rightLeftRotateTester();
         // searchTester();
         // deleteRootTester();
         // deletionOfLeafTester();

@@ -69,16 +69,30 @@ public class AVLTree extends BinSearchTree{
         return x;
     }
 
-    public void rightRotate(AVLNode p){
-        AVLNode x = p.getLeft();
-        AVLNode y = x.getLeft();
-        AVLNode b = y.getRight();
-        p.setLeft(y);
-        y.setRight(x);
-        x.setLeft(b);
-        p.setHeight(max(height(p.getLeft()), height(p.getRight())) + 1);
-        x.setHeight(max(height(x.getLeft()), height(x.getRight())) + 1);
-        y.setHeight(max(height(y.getLeft()), height(y.getRight())) + 1);
+    // if the boolean "left" is true then you want to do a rotation on the left subtree, else rotate on the right subtree
+    public void rightRotate(boolean left, AVLNode p){
+        if (left){
+            AVLNode x = p.getLeft();
+            AVLNode y = x.getLeft();
+            AVLNode b = y.getRight();
+            p.setLeft(y);
+            y.setRight(x);
+            x.setLeft(b);
+            p.setHeight(max(height(p.getLeft()), height(p.getRight())) + 1);
+            x.setHeight(max(height(x.getLeft()), height(x.getRight())) + 1);
+            y.setHeight(max(height(y.getLeft()), height(y.getRight())) + 1);
+        }
+        else {
+            AVLNode x = p.getRight();
+            AVLNode y = x.getLeft();
+            AVLNode b = y.getRight();
+            p.setRight(y);
+            y.setRight(x);
+            x.setLeft(b);
+            p.setHeight(max(height(p.getLeft()), height(p.getRight())) + 1);
+            x.setHeight(max(height(x.getLeft()), height(x.getRight())) + 1);
+            y.setHeight(max(height(y.getLeft()), height(y.getRight())) + 1);
+        }
     }
 
     public AVLNode rootLeftRotate(AVLNode x) {
@@ -94,16 +108,30 @@ public class AVLTree extends BinSearchTree{
         return y;
     }
 
-    public void leftRotate(AVLNode p){
-        AVLNode x = p.getRight();
-        AVLNode y = x.getRight();
-        AVLNode b = y.getLeft();
-        p.setRight(y);
-        y.setLeft(x);
-        x.setRight(b);
-        p.setHeight(max(height(p.getLeft()), height(p.getRight())) + 1);
-        x.setHeight(max(height(x.getLeft()), height(x.getRight())) + 1);
-        y.setHeight(max(height(y.getLeft()), height(y.getRight())) + 1);
+    // if the boolean "left" is true then you want to do a rotation on the left subtree, else rotate on the right subtree
+    public void leftRotate(boolean left, AVLNode p){
+        if (left){
+            AVLNode x = p.getLeft();
+            AVLNode y = x.getRight();
+            AVLNode b = y.getLeft();
+            p.setLeft(y);
+            y.setLeft(x);
+            x.setRight(b);
+            p.setHeight(max(height(p.getLeft()), height(p.getRight())) + 1);
+            x.setHeight(max(height(x.getLeft()), height(x.getRight())) + 1);
+            y.setHeight(max(height(y.getLeft()), height(y.getRight())) + 1);
+        }
+        else {
+            AVLNode x = p.getRight();
+            AVLNode y = x.getRight();
+            AVLNode b = y.getLeft();
+            p.setRight(y);
+            y.setLeft(x);
+            x.setRight(b);
+            p.setHeight(max(height(p.getLeft()), height(p.getRight())) + 1);
+            x.setHeight(max(height(x.getLeft()), height(x.getRight())) + 1);
+            y.setHeight(max(height(y.getLeft()), height(y.getRight())) + 1);
+        }
     }
 
     public AVLNode leftRightRotate(AVLNode p){
@@ -200,24 +228,24 @@ public class AVLTree extends BinSearchTree{
             if (getBalance(root.getRight()) < -1){
                 if (root.getRight().getRight().getRight() != null){
                     System.out.println("Performing left rotation in right subtree...");
-                    leftRotate(root);
+                    leftRotate(false, root);
                 }
                 else {
                     System.out.println("Performing right left rotation in right subtree...");
                     root.getRight().setRight(rightLeftRotate(root.getRight()));
-                    leftRotate(root);
+                    leftRotate(false, root);
                 }
             }
             if (getBalance(root.getRight()) > 1){
                 if (root.getRight().getLeft().getLeft() != null){
                     System.out.println("Performing right rotation in right subtree...");
                     // this isn't working because your "right rotate" function only works for when the rotation needs to be in the left subtree
-                    rightRotate(root);
+                    rightRotate(false, root);
                 }
                 else {
                     System.out.println("Performing left right rotation in right subtree...");
-                    root.getLeft().setLeft(leftRightRotate(root.getLeft()));
-                    rightRotate(root);
+                    root.getRight().setLeft(leftRightRotate(root.getRight()));
+                    rightRotate(false, root);
                 }
             }
             performRotations(root.getRight());
@@ -226,23 +254,23 @@ public class AVLTree extends BinSearchTree{
             if (getBalance(root.getLeft()) > 1){
                 if (root.getLeft().getLeft().getLeft() != null){
                     System.out.println("Performing right rotation in left subtree...");
-                    rightRotate(root);
+                    rightRotate(true, root);
                 }
                 else {
                     System.out.println("Performing left right rotation in left subtree...");
                     root.getLeft().setLeft(leftRightRotate(root.getLeft()));
-                    rightRotate(root);
+                    rightRotate(true, root);
                 }
             }
             if (getBalance(root.getLeft()) < -1){
                 if (root.getLeft().getRight().getRight() != null){
                     System.out.println("Performing left rotation in left subtree...");
-                    leftRotate(root);
+                    leftRotate(true, root);
                 }
                 else {
                     System.out.println("Performing right left rotation in left subtree...");
-                    root.getRight().setRight(rightLeftRotate(root.getRight()));
-                    leftRotate(root);
+                    root.getLeft().setRight(rightLeftRotate(root.getLeft()));
+                    leftRotate(true, root);
                 }
             }
             performRotations(root.getLeft());
