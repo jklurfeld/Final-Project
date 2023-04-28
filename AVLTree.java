@@ -298,9 +298,11 @@ public class AVLTree extends BinSearchTree{
                 // maybe you should have a function that does the stuff required for when a node to be deleted has two children
                 // and then here you'd just call that function and update the root
 
-                // maybe you should just have function for all of these cases?
+                // maybe you should just have function for all of these cases?      
                 AVLNode newRoot = findMin(root.getRight());
+                System.out.println("minimum of right subtree: " + newRoot);
                 AVLroot.setData(newRoot.getData());
+                System.out.println("tree after setting data of root to the min of the right subtree: " + this.toString());
                 deleteR(root.getRight(), newRoot.getData());
             }
             root.setHeight(max(height(root.getLeft()), height(root.getRight())) + 1);

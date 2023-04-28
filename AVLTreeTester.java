@@ -269,6 +269,14 @@ public class AVLTreeTester {
 
         // TODO: test these two cases
         System.out.println("Testing deleting root when it has two children...");
+        System.out.println("Inserting 3 and 15 into the tree...");
+        tree.insert(new AVLNode(3));
+        tree.insert(new AVLNode(15));
+        System.out.println("current tree: " + tree + "\n");
+
+        System.out.println("Deleting root (5)...");
+        tree.delete(5);
+        System.out.println("current tree: " + tree + "\n");
 
         System.out.println("Testing deleting root when it has two subtrees...");
 
@@ -318,7 +326,32 @@ public class AVLTreeTester {
     }
 
     public static void deletionOfNodeWithOneChildTester(){
+        System.out.println("==== TESTING THE DELETION OF A NODE WITH ONE CHILD ====");
+        System.out.println("Creating new tree, setting root to 10, and inserting 1, 20, and 30...");
+        AVLTree tree = new AVLTree();
+        tree.setRoot(new AVLNode(10));
+        tree.insert(new AVLNode(1));
+        tree.insert(new AVLNode(20));
+        tree.insert(new AVLNode(30));
+        System.out.println("current tree: " + tree + "\n");
 
+        System.out.println("Deleting 20...");
+        tree.delete(20);
+        System.out.println("current tree: " + tree + "\n");
+
+        System.out.println("Inserting 0, 5, 20, 40, and 25");
+        tree.insert(new AVLNode(0));
+        tree.insert(new AVLNode(5));
+        tree.insert(new AVLNode(20));
+        tree.insert(new AVLNode(40));
+        tree.insert(new AVLNode(25));
+        System.out.println("current tree: " + tree + "\n");
+
+        System.out.println("Deleting 20...");
+        tree.delete(20);
+        System.out.println("current tree: " + tree + "\n");
+
+        System.out.println("Done testing the deletion of a node with one child.");
     }
 
     public static void main(String[] args){
@@ -332,6 +365,7 @@ public class AVLTreeTester {
         // leftRightRotateTester();
         // rightLeftRotateTester();
         deleteRootTester();
-        deletionOfLeafTester();
+        // deletionOfLeafTester();
+        // deletionOfNodeWithOneChildTester();
     }
 }
