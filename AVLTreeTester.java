@@ -365,6 +365,37 @@ public class AVLTreeTester {
         System.out.println("Done testing the deletion of a node with one child.");
     }
 
+    public static void deletionOfNodeWithTwoChildrenTester(){
+        System.out.println("==== TESTING THE DELETION OF A NODE WITH TWO CHILDREN ====");
+        System.out.println("Creating new tree, setting root to 10, and inserting 1, 20, 30, and 15...");
+        AVLTree tree = new AVLTree();
+        tree.setRoot(new AVLNode(10));
+        tree.insert(new AVLNode(1));
+        tree.insert(new AVLNode(20));
+        tree.insert(new AVLNode(30));
+        tree.insert(new AVLNode(15));
+        System.out.println("current tree: " + tree + "\n");
+
+        System.out.println("Deleting 20...");
+        tree.delete(20);
+        System.out.println("current tree: " + tree + "\n");
+
+        System.out.println("Inserting 0, 5, 20, 40, and 25");
+        tree.insert(new AVLNode(0));
+        tree.insert(new AVLNode(5));
+        tree.insert(new AVLNode(13));
+        tree.insert(new AVLNode(11));
+        tree.insert(new AVLNode(14));
+        System.out.println("current tree: " + tree + "\n");
+
+        // this isn't working because it's finding the minimum value in the left subtree when it should be doing that in the right subtree
+        System.out.println("Deleting 15...");
+        tree.delete(15);
+        System.out.println("current tree: " + tree + "\n");
+
+        System.out.println("Done testing the deletion of a node with two children.");
+    }
+
     public static void main(String[] args){
         // classTester();
         // rootRightRotateTester();
@@ -375,8 +406,9 @@ public class AVLTreeTester {
         // leftRotateTester();
         // leftRightRotateTester();
         // rightLeftRotateTester();
-        deleteRootTester();
+        // deleteRootTester();
         // deletionOfLeafTester();
         // deletionOfNodeWithOneChildTester();
+        deletionOfNodeWithTwoChildrenTester();
     }
 }
