@@ -223,7 +223,6 @@ public class AVLTree extends BinSearchTree{
     }
 
     public void performRotations(AVLNode root){
-        // TODO: fix this function so it works when the balance is -2 for a left node and 2 when it's a right node
         if (root.getRight() != null){
             if (getBalance(root.getRight()) < -1){
                 if (root.getRight().getRight().getRight() != null){
@@ -283,32 +282,38 @@ public class AVLTree extends BinSearchTree{
         // TODO: remember to update the heights of the nodes when you manipulate them!
 
         // myabe this case should be in the wrapper?
-        if (root.getData() == data){
-            if (root.getLeft() == null && root.getRight() == null){
-                AVLroot = null;
-            }
-            else if (root.getLeft() == null && root.getRight() != null){
-                // if the root only has one child, then that child will not have any children
-                AVLroot = root.getRight();
-            }
-            else if (root.getLeft() != null && root.getRight() == null){
-                AVLroot = root.getLeft();
-            }
-            else {
-                // maybe you should have a function that does the stuff required for when a node to be deleted has two children
-                // and then here you'd just call that function and update the root
+        // if (root.getData() == data){
+        //     System.out.println("inside root.getData() == data");
+        //     if (root.getLeft() == null && root.getRight() == null){
+        //         System.out.println("inside both children are null if statement");
+        //         root = null;
+        //         System.out.println("current root: " + root);
+        //     }
+        //     else if (root.getLeft() == null && root.getRight() != null){
+        //         // if the root only has one child, then that child will not have any children
+        //         root = root.getRight();
+        //         root.setHeight(max(height(root.getLeft()), height(root.getRight())) + 1);
+        //     }
+        //     else if (root.getLeft() != null && root.getRight() == null){
+        //         root = root.getLeft();
+        //         root.setHeight(max(height(root.getLeft()), height(root.getRight())) + 1);
+        //     }
+        //     else {
+        //         // maybe you should have a function that does the stuff required for when a node to be deleted has two children
+        //         // and then here you'd just call that function and update the root
 
-                // maybe you should just have function for all of these cases?      
-                AVLNode newRoot = findMin(root.getRight());
-                System.out.println("minimum of right subtree: " + newRoot);
-                AVLroot.setData(newRoot.getData());
-                System.out.println("tree after setting data of root to the min of the right subtree: " + this.toString());
-                deleteR(root.getRight(), newRoot.getData());
-            }
-            root.setHeight(max(height(root.getLeft()), height(root.getRight())) + 1);
-            return;
-        }
-        else if (root.getLeft() != null && root.getLeft().getData() == data){
+        //         // maybe you should just have function for all of these cases?      
+        //         AVLNode newRoot = findMin(root.getRight());
+        //         System.out.println("minimum of right subtree: " + newRoot);
+        //         root.setData(newRoot.getData());
+        //         System.out.println("tree after setting data of root to the min of the right subtree: " + this.toString());
+        //         root.setHeight(max(height(root.getLeft()), height(root.getRight())) + 1);
+        //         deleteR(root.getRight(), newRoot.getData());
+        //     }
+        //     // root.setHeight(max(height(root.getLeft()), height(root.getRight())) + 1);
+        //     return;
+        // }
+        if (root.getLeft() != null && root.getLeft().getData() == data){
             AVLNode nodeToBeDeleted = root.getLeft();
             if (nodeToBeDeleted.getRight() == null && nodeToBeDeleted.getLeft() == null){
                 root.setLeft(null);
@@ -328,7 +333,8 @@ public class AVLTree extends BinSearchTree{
             else {
                 AVLNode newRoot = findMin(root.getRight());
                 root.setData(newRoot.getData());
-                deleteR(root.getRight(), newRoot.getData());
+                // deleteR(root.getRight(), newRoot.getData());
+                deleteR(root, newRoot.getData());
             }
             return;
         }
@@ -351,7 +357,8 @@ public class AVLTree extends BinSearchTree{
             else {
                 AVLNode newRoot = findMin(root.getRight());
                 root.setData(newRoot.getData());
-                deleteR(root.getRight(), newRoot.getData());
+                // deleteR(root.getRight(), newRoot.getData());
+                deleteR(root, newRoot.getData());
             }
             return;
         }
@@ -391,6 +398,37 @@ public class AVLTree extends BinSearchTree{
     }
 
     public void delete(int data){
+        if (AVLroot.getData() == data){
+            System.out.println("inside first if statement.");
+            if (AVLroot.getLeft() == null && AVLroot.getRight() == null){
+                AVLroot = null;
+            }
+            else if (AVLroot.getLeft() == null && AVLroot.getRight() != null){
+                // if the root only has one child, then that child will not have any children
+                AVLroot = AVLroot.getRight();
+                AVLroot.setHeight(max(height(AVLroot.getLeft()), height(AVLroot.getRight())) + 1);
+            }
+            else if (AVLroot.getLeft() != null && AVLroot.getRight() == null){
+                AVLroot = AVLroot.getLeft();
+                AVLroot.setHeight(max(height(AVLroot.getLeft()), height(AVLroot.getRight())) + 1);
+            }
+            else {
+                System.out.println("inside else case");
+                // maybe you should have a function that does the stuff required for when a node to be deleted has two children
+                // and then here you'd just call that function and update the root
+
+                // maybe you should just have function for all of these cases?      
+                AVLNode newRoot = findMin(AVLroot.getRight());
+                System.out.println("minimum of right subtree: " + newRoot);
+                AVLroot.setData(newRoot.getData());
+                System.out.println("IN WRAPPER tree after setting data of root to the min of the right subtree: " + this.toString());
+                AVLroot.setHeight(max(height(AVLroot.getLeft()), height(AVLroot.getRight())) + 1);
+                deleteR(AVLroot, newRoot.getData());
+                
+            }
+            // AVLroot.setHeight(max(height(AVLroot.getLeft()), height(AVLroot.getRight())) + 1);
+            return;
+        }
         deleteR(getRoot(), data); 
     }
 

@@ -279,6 +279,17 @@ public class AVLTreeTester {
         System.out.println("current tree: " + tree + "\n");
 
         System.out.println("Testing deleting root when it has two subtrees...");
+        System.out.println("Inserting 30, 0 , 5, 20, and 40 into the tree...");
+        tree.insert(new AVLNode(30));
+        tree.insert(new AVLNode(0));
+        tree.insert(new AVLNode(5));
+        tree.insert(new AVLNode(20));
+        tree.insert(new AVLNode(40));
+        System.out.println("current tree: " + tree + "\n");
+
+        System.out.println("Deleting root (15)...");
+        tree.delete(15);
+        System.out.println("current tree: " + tree + "\n");
 
         System.out.println("Done testing the deletion of the root.");
     }
