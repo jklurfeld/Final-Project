@@ -193,36 +193,62 @@ public class AVLTree extends BinSearchTree{
         System.out.println("Tree after insertion but before rotations: " + this.toString());
 
         // maybe you should put all of these in the perform rotations function so you can use it after you delete a node?
-        int rootBalance = getBalance(AVLroot);
-        if (rootBalance > 1){
-            if (AVLroot.getLeft().getLeft() != null){
-                System.out.println("Performing root right rotation...");
-                rootRightRotate(AVLroot);
-            }
-            else {
-                // left right rotation
-                System.out.println("Performing root left right rotation...");
-                AVLroot.setLeft(rootLeftRotate(AVLroot.getLeft()));
-                rootRightRotate(AVLroot);
-            }
-        }
-        else if (rootBalance < -1){
-            if (AVLroot.getRight().getRight() != null){
-                System.out.println("Performing root left rotation...");
-                rootLeftRotate(AVLroot);
-            }
-            else {
-                System.out.println("Performing root right left rotation...");
-                AVLroot.setRight(rootRightRotate(AVLroot.getRight()));
-                rootLeftRotate(AVLroot);
-            }
-        }
+        // int rootBalance = getBalance(AVLroot);
+        // if (rootBalance > 1){
+        //     if (AVLroot.getLeft().getLeft() != null){
+        //         System.out.println("Performing root right rotation...");
+        //         rootRightRotate(AVLroot);
+        //     }
+        //     else {
+        //         // left right rotation
+        //         System.out.println("Performing root left right rotation...");
+        //         AVLroot.setLeft(rootLeftRotate(AVLroot.getLeft()));
+        //         rootRightRotate(AVLroot);
+        //     }
+        // }
+        // else if (rootBalance < -1){
+        //     if (AVLroot.getRight().getRight() != null){
+        //         System.out.println("Performing root left rotation...");
+        //         rootLeftRotate(AVLroot);
+        //     }
+        //     else {
+        //         System.out.println("Performing root right left rotation...");
+        //         AVLroot.setRight(rootRightRotate(AVLroot.getRight()));
+        //         rootLeftRotate(AVLroot);
+        //     }
+        // }
 
         // check the balances and perform rotations
         performRotations(AVLroot);
     }
 
     public void performRotations(AVLNode root){
+        if (root == AVLroot){
+            int rootBalance = getBalance(AVLroot);
+            if (rootBalance > 1){
+                if (AVLroot.getLeft().getLeft() != null){
+                    System.out.println("Performing root right rotation...");
+                    rootRightRotate(AVLroot);
+                }
+                else {
+                    // left right rotation
+                    System.out.println("Performing root left right rotation...");
+                    AVLroot.setLeft(rootLeftRotate(AVLroot.getLeft()));
+                    rootRightRotate(AVLroot);
+                }
+            }
+            else if (rootBalance < -1){
+                if (AVLroot.getRight().getRight() != null){
+                    System.out.println("Performing root left rotation...");
+                    rootLeftRotate(AVLroot);
+                }
+                else {
+                    System.out.println("Performing root right left rotation...");
+                    AVLroot.setRight(rootRightRotate(AVLroot.getRight()));
+                    rootLeftRotate(AVLroot);
+                }
+            }
+        }
         if (root.getRight() != null){
             if (getBalance(root.getRight()) < -1){
                 if (root.getRight().getRight().getRight() != null){
@@ -344,6 +370,7 @@ public class AVLTree extends BinSearchTree{
                 // deleteR(root.getRight(), newRoot.getData());
                 deleteR(nodeToBeDeleted, newRoot.getData(), bigger);
             }
+            performRotations(AVLroot);
             return;
         }
         else if (root.getRight() != null && root.getRight().getData() == data){
@@ -377,6 +404,8 @@ public class AVLTree extends BinSearchTree{
                 System.out.println("tree before deleting extra copied node: " + this.toString());
                 deleteR(nodeToBeDeleted, newRoot.getData(), bigger);
             }
+            performRotations(AVLroot);
+            // when you return here, you don't get to perform the rotations
             return;
         }
         else if (data < root.getData()){
@@ -387,30 +416,30 @@ public class AVLTree extends BinSearchTree{
         }
 
         // check the balances and perform rotations
-        int rootBalance = getBalance(AVLroot);
-        if (rootBalance > 1){
-            if (AVLroot.getLeft().getLeft() != null){
-                System.out.println("Performing root right rotation...");
-                rootRightRotate(AVLroot);
-            }
-            else {
-                // left right rotation
-                System.out.println("Performing root left right rotation...");
-                AVLroot.setLeft(rootLeftRotate(AVLroot.getLeft()));
-                rootRightRotate(AVLroot);
-            }
-        }
-        else if (rootBalance < -1){
-            if (AVLroot.getRight().getRight() != null){
-                System.out.println("Performing root left rotation...");
-                rootLeftRotate(AVLroot);
-            }
-            else {
-                System.out.println("Performing root right left rotation...");
-                AVLroot.setRight(rootRightRotate(AVLroot.getRight()));
-                rootLeftRotate(AVLroot);
-            }
-        }
+        // int rootBalance = getBalance(AVLroot);
+        // if (rootBalance > 1){
+        //     if (AVLroot.getLeft().getLeft() != null){
+        //         System.out.println("Performing root right rotation...");
+        //         rootRightRotate(AVLroot);
+        //     }
+        //     else {
+        //         // left right rotation
+        //         System.out.println("Performing root left right rotation...");
+        //         AVLroot.setLeft(rootLeftRotate(AVLroot.getLeft()));
+        //         rootRightRotate(AVLroot);
+        //     }
+        // }
+        // else if (rootBalance < -1){
+        //     if (AVLroot.getRight().getRight() != null){
+        //         System.out.println("Performing root left rotation...");
+        //         rootLeftRotate(AVLroot);
+        //     }
+        //     else {
+        //         System.out.println("Performing root right left rotation...");
+        //         AVLroot.setRight(rootRightRotate(AVLroot.getRight()));
+        //         rootLeftRotate(AVLroot);
+        //     }
+        // }
         performRotations(AVLroot);
     }
 
@@ -449,6 +478,7 @@ public class AVLTree extends BinSearchTree{
                 // deleteR(root.getRight(), newRoot.getData());
                 deleteR(nodeToBeDeleted, newRoot.getData(), bigger);
             }
+            performRotations(AVLroot);
             return;
         }
         else if (root.getRight() != null && root.getRight().getData() == data){
@@ -482,6 +512,7 @@ public class AVLTree extends BinSearchTree{
                 System.out.println("tree before deleting extra copied node: " + this.toString());
                 deleteR(nodeToBeDeleted, newRoot.getData(), bigger);
             }
+            performRotations(AVLroot);
             return;
         }
         else if (!larger){
@@ -553,6 +584,7 @@ public class AVLTree extends BinSearchTree{
                 deleteR(AVLroot, newRoot.getData(), bigger);
             }
             // AVLroot.setHeight(max(height(AVLroot.getLeft()), height(AVLroot.getRight())) + 1);
+            performRotations(AVLroot);
             return;
         }
         deleteR(getRoot(), data); 
@@ -564,7 +596,7 @@ public class AVLTree extends BinSearchTree{
         AVLNode min = root;
         while (min.getLeft() != null){
             min = min.getLeft();
-            // System.out.println("new min: " + min);
+            System.out.println("new min: " + min);
         }
         return min;
     }

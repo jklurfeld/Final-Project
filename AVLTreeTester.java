@@ -396,6 +396,21 @@ public class AVLTreeTester {
         System.out.println("Done testing the deletion of a node with two children.");
     }
 
+    public static void tester(){
+        System.out.println("Creating new tree, setting root to 6, and inserting 3, 7, and 5...");
+        AVLTree tree = new AVLTree();
+        tree.setRoot(new AVLNode(14));
+        tree.insert(new AVLNode(3));
+        tree.insert(new AVLNode(17));
+        tree.insert(new AVLNode(2));
+        tree.insert(new AVLNode(6));
+        System.out.println("current tree: " + tree + "\n");
+
+        System.out.println("inserting 4...");
+        tree.insert(new AVLNode(4));
+        System.out.println("current tree: " + tree);
+    }
+
     public static void main(String[] args){
         // classTester();
         // rootRightRotateTester();
@@ -406,9 +421,10 @@ public class AVLTreeTester {
         // leftRotateTester();
         // leftRightRotateTester();
         // rightLeftRotateTester();
-        deleteRootTester();
-        deletionOfLeafTester();
-        deletionOfNodeWithOneChildTester();
-        deletionOfNodeWithTwoChildrenTester();
+        // deleteRootTester();
+        // deletionOfLeafTester();
+        // deletionOfNodeWithOneChildTester();
+        // deletionOfNodeWithTwoChildrenTester();
+        tester();
     }
 }
