@@ -332,7 +332,7 @@ public class AVLTree extends BinSearchTree{
                 nodeToBeDeleted.setHeight(max(height(nodeToBeDeleted.getLeft()), height(nodeToBeDeleted.getRight())) + 1);
             }
             else {
-                AVLNode newRoot = findMin(root.getRight());
+                AVLNode newRoot = findMin(nodeToBeDeleted.getRight());
                 boolean bigger;
                 if (newRoot.getData() > nodeToBeDeleted.getData()){
                     bigger = true;
@@ -364,7 +364,7 @@ public class AVLTree extends BinSearchTree{
                 nodeToBeDeleted.setHeight(max(height(nodeToBeDeleted.getLeft()), height(nodeToBeDeleted.getRight())) + 1);
             }
             else {
-                AVLNode newRoot = findMin(root.getRight());
+                AVLNode newRoot = findMin(nodeToBeDeleted.getRight());
                 boolean bigger;
                 if (newRoot.getData() > nodeToBeDeleted.getData()){
                     bigger = true;
@@ -437,7 +437,7 @@ public class AVLTree extends BinSearchTree{
                 nodeToBeDeleted.setHeight(max(height(nodeToBeDeleted.getLeft()), height(nodeToBeDeleted.getRight())) + 1);
             }
             else {
-                AVLNode newRoot = findMin(root.getRight());
+                AVLNode newRoot = findMin(nodeToBeDeleted.getRight());
                 boolean bigger;
                 if (newRoot.getData() > nodeToBeDeleted.getData()){
                     bigger = true;
@@ -469,7 +469,7 @@ public class AVLTree extends BinSearchTree{
                 nodeToBeDeleted.setHeight(max(height(nodeToBeDeleted.getLeft()), height(nodeToBeDeleted.getRight())) + 1);
             }
             else {
-                AVLNode newRoot = findMin(root.getRight());
+                AVLNode newRoot = findMin(nodeToBeDeleted.getRight());
                 boolean bigger;
                 if (newRoot.getData() > nodeToBeDeleted.getData()){
                     bigger = true;

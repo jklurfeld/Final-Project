@@ -406,9 +406,9 @@ public class AVLTreeTester {
         // leftRotateTester();
         // leftRightRotateTester();
         // rightLeftRotateTester();
-        // deleteRootTester();
-        // deletionOfLeafTester();
-        // deletionOfNodeWithOneChildTester();
+        deleteRootTester();
+        deletionOfLeafTester();
+        deletionOfNodeWithOneChildTester();
         deletionOfNodeWithTwoChildrenTester();
     }
 }
