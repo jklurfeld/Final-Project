@@ -1,4 +1,6 @@
 public class AVLTreeTester {
+    // make tree with random values to see if it works
+
     public static void classTester(){
         System.out.println("==== TESTING AVLTree CLASS ====");
         System.out.println("Creating new tree...");
