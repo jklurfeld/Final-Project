@@ -160,6 +160,7 @@ public class AVLTree extends BinSearchTree{
         return y;
     }
 
+    // TODO: stop supporting inserting two nodes with the same data?
     public void insertR(AVLNode node, AVLNode root){
         if (root == null){
             setRoot(node);
@@ -192,36 +193,11 @@ public class AVLTree extends BinSearchTree{
         insertR(node, getRoot());
         System.out.println("Tree after insertion but before rotations: " + this.toString());
 
-        // maybe you should put all of these in the perform rotations function so you can use it after you delete a node?
-        // int rootBalance = getBalance(AVLroot);
-        // if (rootBalance > 1){
-        //     if (AVLroot.getLeft().getLeft() != null){
-        //         System.out.println("Performing root right rotation...");
-        //         rootRightRotate(AVLroot);
-        //     }
-        //     else {
-        //         // left right rotation
-        //         System.out.println("Performing root left right rotation...");
-        //         AVLroot.setLeft(rootLeftRotate(AVLroot.getLeft()));
-        //         rootRightRotate(AVLroot);
-        //     }
-        // }
-        // else if (rootBalance < -1){
-        //     if (AVLroot.getRight().getRight() != null){
-        //         System.out.println("Performing root left rotation...");
-        //         rootLeftRotate(AVLroot);
-        //     }
-        //     else {
-        //         System.out.println("Performing root right left rotation...");
-        //         AVLroot.setRight(rootRightRotate(AVLroot.getRight()));
-        //         rootLeftRotate(AVLroot);
-        //     }
-        // }
-
         // check the balances and perform rotations
-        performRotations(AVLroot);
+        performRotations(AVLroot, node);
     }
 
+    // for use in deletions
     public void performRotations(AVLNode root){
         if (root == AVLroot){
             int rootBalance = getBalance(AVLroot);
@@ -251,7 +227,7 @@ public class AVLTree extends BinSearchTree{
         }
         if (root.getRight() != null){
             if (getBalance(root.getRight()) < -1){
-                if (root.getRight().getRight().getRight() != null){
+                if (getBalance(root.getRight().getRight()) <= 0){
                     System.out.println("Performing left rotation in right subtree...");
                     leftRotate(false, root);
                 }
@@ -262,7 +238,7 @@ public class AVLTree extends BinSearchTree{
                 }
             }
             if (getBalance(root.getRight()) > 1){
-                if (root.getRight().getLeft().getLeft() != null){
+                if (getBalance(root.getRight().getLeft()) >= 0){
                     System.out.println("Performing right rotation in right subtree...");
                     // this isn't working because your "right rotate" function only works for when the rotation needs to be in the left subtree
                     rightRotate(false, root);
@@ -277,7 +253,7 @@ public class AVLTree extends BinSearchTree{
         }
         if (root.getLeft() != null){
             if (getBalance(root.getLeft()) > 1){
-                if (root.getLeft().getLeft().getLeft() != null){
+                if (getBalance(root.getLeft().getLeft()) >= 0){
                     System.out.println("Performing right rotation in left subtree...");
                     rightRotate(true, root);
                 }
@@ -288,7 +264,7 @@ public class AVLTree extends BinSearchTree{
                 }
             }
             if (getBalance(root.getLeft()) < -1){
-                if (root.getLeft().getRight().getRight() != null){
+                if (getBalance(root.getLeft().getRight()) <= 0){
                     System.out.println("Performing left rotation in left subtree...");
                     leftRotate(true, root);
                 }
@@ -302,44 +278,94 @@ public class AVLTree extends BinSearchTree{
         }
     }
 
-    // if larger is true, then the new root's data is larger than the old one
+    // for use in insertions
+    public void performRotations(AVLNode root, AVLNode newNode){
+        if (root == AVLroot){
+            int rootBalance = getBalance(AVLroot);
+            if (rootBalance > 1){
+                if (newNode.getData() < root.getLeft().getData()){
+                    System.out.println("Performing root right rotation...");
+                    rootRightRotate(AVLroot);
+                }
+                else {
+                    // left right rotation
+                    System.out.println("Performing root left right rotation...");
+                    // AVLroot.setLeft(rootLeftRotate(AVLroot.getLeft()));
+                    leftRotate(true, AVLroot);
+                    rootRightRotate(AVLroot);
+                }
+            }
+            else if (rootBalance < -1){
+                if (newNode.getData() > root.getRight().getData()){
+                    System.out.println("Performing root left rotation...");
+                    rootLeftRotate(AVLroot);
+                }
+                else {
+                    System.out.println("Performing root right left rotation...");
+                    // AVLroot.setRight(rootRightRotate(AVLroot.getRight()));
+                    rightRotate(false, AVLroot);
+                    rootLeftRotate(AVLroot);
+                }
+            }
+        }
+        if (root.getRight() != null){
+            if (getBalance(root.getRight()) < -1){
+                if (newNode.getData() > root.getRight().getRight().getData()){
+                    System.out.println("Performing left rotation in right subtree...");
+                    leftRotate(false, root);
+                }
+                else {
+                    System.out.println("Performing right left rotation in right subtree...");
+                    root.getRight().setRight(rightLeftRotate(root.getRight()));
+                    leftRotate(false, root);
+                }
+            }
+            if (getBalance(root.getRight()) > 1){
+                if (newNode.getData() < root.getRight().getLeft().getData()){
+                    System.out.println("Performing right rotation in right subtree...");
+                    // this isn't working because your "right rotate" function only works for when the rotation needs to be in the left subtree
+                    rightRotate(false, root);
+                }
+                else {
+                    System.out.println("Performing left right rotation in right subtree...");
+                    root.getRight().setLeft(leftRightRotate(root.getRight()));
+                    rightRotate(false, root);
+                }
+            }
+            performRotations(root.getRight(), newNode);
+        }
+        if (root.getLeft() != null){
+            if (getBalance(root.getLeft()) > 1){
+                if (newNode.getData() < root.getLeft().getLeft().getData()){
+                    System.out.println("Performing right rotation in left subtree...");
+                    rightRotate(true, root);
+                }
+                else {
+                    System.out.println("Performing left right rotation in left subtree...");
+                    root.getLeft().setLeft(leftRightRotate(root.getLeft()));
+                    rightRotate(true, root);
+                }
+            }
+            if (getBalance(root.getLeft()) < -1){
+                if (newNode.getData() > root.getLeft().getRight().getData()){
+                    System.out.println("Performing left rotation in left subtree...");
+                    leftRotate(true, root);
+                }
+                else {
+                    System.out.println("Performing right left rotation in left subtree...");
+                    root.getLeft().setRight(rightLeftRotate(root.getLeft()));
+                    leftRotate(true, root);
+                }
+            }
+            performRotations(root.getLeft(), newNode);
+        }
+    }
+
     public void deleteR(AVLNode root, int data){
         // TODO: figure out how to make a case for when the data you're looking for doesn't exist in the tree so your code doesn't throw an exception when this happens?
 
         // TODO: remember to update the heights of the nodes when you manipulate them!
 
-        // myabe this case should be in the wrapper?
-        // if (root.getData() == data){
-        //     System.out.println("inside root.getData() == data");
-        //     if (root.getLeft() == null && root.getRight() == null){
-        //         System.out.println("inside both children are null if statement");
-        //         root = null;
-        //         System.out.println("current root: " + root);
-        //     }
-        //     else if (root.getLeft() == null && root.getRight() != null){
-        //         // if the root only has one child, then that child will not have any children
-        //         root = root.getRight();
-        //         root.setHeight(max(height(root.getLeft()), height(root.getRight())) + 1);
-        //     }
-        //     else if (root.getLeft() != null && root.getRight() == null){
-        //         root = root.getLeft();
-        //         root.setHeight(max(height(root.getLeft()), height(root.getRight())) + 1);
-        //     }
-        //     else {
-        //         // maybe you should have a function that does the stuff required for when a node to be deleted has two children
-        //         // and then here you'd just call that function and update the root
-
-        //         // maybe you should just have function for all of these cases?      
-        //         AVLNode newRoot = findMin(root.getRight());
-        //         System.out.println("minimum of right subtree: " + newRoot);
-        //         root.setData(newRoot.getData());
-        //         System.out.println("tree after setting data of root to the min of the right subtree: " + this.toString());
-        //         root.setHeight(max(height(root.getLeft()), height(root.getRight())) + 1);
-        //         deleteR(root.getRight(), newRoot.getData());
-        //     }
-        //     // root.setHeight(max(height(root.getLeft()), height(root.getRight())) + 1);
-        //     return;
-        // }
         if (root.getLeft() != null && root.getLeft().getData() == data){
             AVLNode nodeToBeDeleted = root.getLeft();
             if (nodeToBeDeleted.getRight() == null && nodeToBeDeleted.getLeft() == null){
@@ -416,30 +442,6 @@ public class AVLTree extends BinSearchTree{
         }
 
         // check the balances and perform rotations
-        // int rootBalance = getBalance(AVLroot);
-        // if (rootBalance > 1){
-        //     if (AVLroot.getLeft().getLeft() != null){
-        //         System.out.println("Performing root right rotation...");
-        //         rootRightRotate(AVLroot);
-        //     }
-        //     else {
-        //         // left right rotation
-        //         System.out.println("Performing root left right rotation...");
-        //         AVLroot.setLeft(rootLeftRotate(AVLroot.getLeft()));
-        //         rootRightRotate(AVLroot);
-        //     }
-        // }
-        // else if (rootBalance < -1){
-        //     if (AVLroot.getRight().getRight() != null){
-        //         System.out.println("Performing root left rotation...");
-        //         rootLeftRotate(AVLroot);
-        //     }
-        //     else {
-        //         System.out.println("Performing root right left rotation...");
-        //         AVLroot.setRight(rootRightRotate(AVLroot.getRight()));
-        //         rootLeftRotate(AVLroot);
-        //     }
-        // }
         performRotations(AVLroot);
     }
 
@@ -554,6 +556,7 @@ public class AVLTree extends BinSearchTree{
         if (AVLroot.getData() == data){
             if (AVLroot.getLeft() == null && AVLroot.getRight() == null){
                 AVLroot = null;
+                return;
             }
             else if (AVLroot.getLeft() == null && AVLroot.getRight() != null){
                 // if the root only has one child, then that child will not have any children

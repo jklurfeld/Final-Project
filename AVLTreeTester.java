@@ -136,6 +136,8 @@ public class AVLTreeTester {
         tree.insert(new AVLNode(1));
         System.out.println("current tree: " + tree + "\n");
 
+
+
         System.out.println("Done testing rightRotate method.");
     }
 
@@ -425,6 +427,6 @@ public class AVLTreeTester {
         // deletionOfLeafTester();
         // deletionOfNodeWithOneChildTester();
         // deletionOfNodeWithTwoChildrenTester();
-        tester();
+        // tester();
     }
 }
