@@ -364,8 +364,6 @@ public class AVLTree extends BinSearchTree{
     public void deleteR(AVLNode root, int data){
         // TODO: figure out how to make a case for when the data you're looking for doesn't exist in the tree so your code doesn't throw an exception when this happens?
 
-        // TODO: remember to update the heights of the nodes when you manipulate them!
-
         if (root.getLeft() != null && root.getLeft().getData() == data){
             AVLNode nodeToBeDeleted = root.getLeft();
             if (nodeToBeDeleted.getRight() == null && nodeToBeDeleted.getLeft() == null){

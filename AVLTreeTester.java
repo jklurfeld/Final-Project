@@ -12,7 +12,7 @@ public class AVLTreeTester {
         System.out.println("Result of getRoot(): " + tree.getRoot());
         System.out.println("current tree: " + tree + "\n");
 
-        // TODO: test max, height, and getBalance?
+        // TODO: test max, height, getBalance, and findMin()?
 
         System.out.println("Inserting 1 in tree...");
         tree.insert(new AVLNode(1));
@@ -111,6 +111,7 @@ public class AVLTreeTester {
 
     public static void rightRotateTester(){
         System.out.println("==== Testing rightRotate method ====");
+        // TODO: add tester for right rotating in right subtree? already tested this in driver-- do I need hardcoded example?
         System.out.println("Creating new tree and setting root to 10...");
         AVLTree tree = new AVLTree();
         tree.setRoot(new AVLNode(10));
@@ -142,8 +143,8 @@ public class AVLTreeTester {
     }
 
     public static void leftRotateTester(){
-        // TODO: add testers for left rotating in left subtree and right rotating in right subtree? already tested this in driver-- do I need hardcoded example?
         System.out.println("==== Testing leftRotate method ====");
+        System.out.println("Testing left rotate in right subtree...");
         System.out.println("Creating new tree and setting root to 10...");
         AVLTree tree = new AVLTree();
         tree.setRoot(new AVLNode(10));
@@ -168,6 +169,21 @@ public class AVLTreeTester {
         System.out.println("Inserting 20 in the tree...");
         tree.insert(new AVLNode(20));
         System.out.println("current tree: " + tree + "\n");
+
+        System.out.println("Testing left rotation in left subtree...");
+        System.out.println("Creating new tree and setting root to 20...");
+        AVLTree t = new AVLTree();
+        t.setRoot(new AVLNode(20));
+        System.out.println("Inserting 10, 30, 40, and 15 into the tree...");
+        t.insert(new AVLNode(10));
+        t.insert(new AVLNode(30));
+        t.insert(new AVLNode(40));
+        t.insert(new AVLNode(15));
+        System.out.println("current tree: " + t + "\n");
+
+        System.out.println("Inserting 17 into the tree...");
+        t.insert(new AVLNode(17));
+        System.out.println("current tree: " + t + "\n");
 
         System.out.println("Done testing leftRotate method.");
     }
@@ -420,7 +436,7 @@ public class AVLTreeTester {
         // rootRightLeftRotateTester();
         // rootLeftRightRotateTester();
         // rightRotateTester();
-        // leftRotateTester();
+        leftRotateTester();
         // leftRightRotateTester();
         // rightLeftRotateTester();
         // deleteRootTester();
