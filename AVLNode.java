@@ -9,6 +9,7 @@ public class AVLNode extends BinTreeNode{
         super(data);
         // balanceFactor = 0;
         height = 1;
+        p = new Point(0, 0);
     }
 
     public int getHeight(){

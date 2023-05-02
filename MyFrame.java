@@ -14,7 +14,7 @@ public class MyFrame extends JFrame{
         this.setVisible(true);
     }
 
-    MyFrame(GeomGraph g){
+    MyFrame(GeomAVLTree g){
         panel = new MyPanel(g);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.add(panel);

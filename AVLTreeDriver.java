@@ -15,7 +15,7 @@ public class AVLTreeDriver {
         Scanner input = new Scanner(System.in);
         boolean quit = false;
 
-        AVLTree tree = new AVLTree();
+        GeomAVLTree tree = new GeomAVLTree();
         System.out.println("What value do you want at the root? (Enter an integer)");
         tree.setRoot(new AVLNode(input.nextInt()));
         input.nextLine();
@@ -30,6 +30,7 @@ public class AVLTreeDriver {
                     System.out.println("insert the data of the new node:");
                     tree.insert(new AVLNode(input.nextInt()));
                     input.nextLine();
+                    tree.setPoints(tree.getRoot(), 1);
                     break;
                 case "delete":
                     System.out.println("insert the data of the node to be deleted:");
@@ -47,6 +48,7 @@ public class AVLTreeDriver {
                     break;
                 case "quit":
                     quit = true;
+                    MyFrame demoFrame = new MyFrame(tree);
                     break;
                 default:
                     System.out.println("This is not a known command.");
