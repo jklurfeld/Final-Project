@@ -36,6 +36,7 @@ public class AVLTreeDriver {
                     System.out.println("insert the data of the node to be deleted:");
                     tree.delete(input.nextInt());
                     input.nextLine();
+                    tree.setPoints(tree.getRoot(), 1);
                     break;
                 case "sort":
                     System.out.println("current tree sorted: " + tree.traverseW());

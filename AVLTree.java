@@ -191,7 +191,7 @@ public class AVLTree extends BinSearchTree{
     public void insert(AVLNode node){
         // insert the new node
         insertR(node, getRoot());
-        System.out.println("Tree after insertion but before rotations: " + this.toString());
+        // System.out.println("Tree after insertion but before rotations: " + this.toString());
 
         // check the balances and perform rotations
         performRotations(AVLroot, node);
@@ -398,7 +398,7 @@ public class AVLTree extends BinSearchTree{
             return;
         }
         else if (root.getRight() != null && root.getRight().getData() == data){
-            System.out.println("inside root.getRight() == data if statement");
+            // System.out.println("inside root.getRight() == data if statement");
             AVLNode nodeToBeDeleted = root.getRight();
             if (nodeToBeDeleted.getRight() == null && nodeToBeDeleted.getLeft() == null){
                 root.setRight(null);
@@ -425,7 +425,7 @@ public class AVLTree extends BinSearchTree{
                 }
                 nodeToBeDeleted.setData(newRoot.getData());
                 // deleteR(root.getRight(), newRoot.getData());
-                System.out.println("tree before deleting extra copied node: " + this.toString());
+                // System.out.println("tree before deleting extra copied node: " + this.toString());
                 deleteR(nodeToBeDeleted, newRoot.getData(), bigger);
             }
             performRotations(AVLroot);
@@ -482,7 +482,7 @@ public class AVLTree extends BinSearchTree{
             return;
         }
         else if (root.getRight() != null && root.getRight().getData() == data){
-            System.out.println("inside root.getRight() == data if statement");
+            // System.out.println("inside root.getRight() == data if statement");
             AVLNode nodeToBeDeleted = root.getRight();
             if (nodeToBeDeleted.getRight() == null && nodeToBeDeleted.getLeft() == null){
                 root.setRight(null);
@@ -509,7 +509,7 @@ public class AVLTree extends BinSearchTree{
                 }
                 nodeToBeDeleted.setData(newRoot.getData());
                 // deleteR(root.getRight(), newRoot.getData());
-                System.out.println("tree before deleting extra copied node: " + this.toString());
+                // System.out.println("tree before deleting extra copied node: " + this.toString());
                 deleteR(nodeToBeDeleted, newRoot.getData(), bigger);
             }
             performRotations(AVLroot);
@@ -578,9 +578,9 @@ public class AVLTree extends BinSearchTree{
                 else {
                     bigger = false;
                 }
-                System.out.println("minimum of right subtree: " + newRoot);
+                // System.out.println("minimum of right subtree: " + newRoot);
                 AVLroot.setData(newRoot.getData());
-                System.out.println("IN WRAPPER tree after setting data of root to the min of the right subtree: " + this.toString());
+                // System.out.println("IN WRAPPER tree after setting data of root to the min of the right subtree: " + this.toString());
                 AVLroot.setHeight(max(height(AVLroot.getLeft()), height(AVLroot.getRight())) + 1);
                 deleteR(AVLroot, newRoot.getData(), bigger);
             }
@@ -597,7 +597,7 @@ public class AVLTree extends BinSearchTree{
         AVLNode min = root;
         while (min.getLeft() != null){
             min = min.getLeft();
-            System.out.println("new min: " + min);
+            // System.out.println("new min: " + min);
         }
         return min;
     }
