@@ -1,3 +1,6 @@
+// resource for paint vs. repaint
+// https://www2.seas.gwu.edu/~rhyspj/fall05cs143/lab8/lab88.html
+
 import java.util.Scanner;
 
 public class AVLTreeDriver {
@@ -18,7 +21,10 @@ public class AVLTreeDriver {
         GeomAVLTree tree = new GeomAVLTree();
         System.out.println("What value do you want at the root? (Enter an integer)");
         tree.setRoot(new AVLNode(input.nextInt()));
+        tree.getRoot().p.x = 250;
+        tree.getRoot().p.y = 50;
         input.nextLine();
+        MyFrame demoFrame = new MyFrame(tree);
 
         printOptions();
 
@@ -31,12 +37,14 @@ public class AVLTreeDriver {
                     tree.insert(new AVLNode(input.nextInt()));
                     input.nextLine();
                     tree.setPoints(tree.getRoot(), 1);
+                    demoFrame.panel.repaint();
                     break;
                 case "delete":
                     System.out.println("insert the data of the node to be deleted:");
                     tree.delete(input.nextInt());
                     input.nextLine();
                     tree.setPoints(tree.getRoot(), 1);
+                    demoFrame.panel.repaint();
                     break;
                 case "sort":
                     System.out.println("current tree sorted: " + tree.traverseW());
@@ -49,7 +57,7 @@ public class AVLTreeDriver {
                     break;
                 case "quit":
                     quit = true;
-                    MyFrame demoFrame = new MyFrame(tree);
+                    // MyFrame demoFrame = new MyFrame(tree);
                     break;
                 default:
                     System.out.println("This is not a known command.");
