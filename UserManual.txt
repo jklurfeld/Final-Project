@@ -1,0 +1,12 @@
+My project was making a self balancing binary tree. To use my project, run the AVLTreeDriver.java file, and it will ask you
+what number you want at the root. Input an integer and then press enter. A window showing the visualization will then pop up
+showing the root node. Then, the options menu will show up in the command line showing what you can do next.
+
+Options Menu:
+    - insert: inserts a node into the tree (because the tree is self balancing, the tree will rotate by itself if needed)
+    - delete: deletes a node from the tree (because the tree is self balancing, the tree will rotate by itself if needed)
+    - sort: prints out a list of the nodes in the tree in numerical ascending order
+    - print options: prints out the options menu
+    - print tree: prints out a string representation of the tree, for each node the first number is the data, the second number
+    is the balance factor, the third number is the height, and the fourth and fifth numbers are the x and y coordinates
+    - quit: quits the program (note that the program is not fully quit out of until you close the window visualizing the tree)
