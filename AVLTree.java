@@ -602,6 +602,23 @@ public class AVLTree extends BinSearchTree{
         return min;
     }
 
+    // helper method for delete so if the node isn't in the tree, delete will still work
+    public boolean search(AVLNode root, int data){
+        if (root == null){
+            return false;
+        }
+        if (root.getData() == data){
+            return true;
+        }
+        if (root.getData() < data){
+            return search(root.getRight(), data);
+        }
+        else if (root.getData() > data){
+            return search(root.getLeft(), data);
+        }
+        return false;
+    }
+
     // updated toString() method so the balance factor of each node is also printed in curly braces 
     // and the height is between two []
     public String toString(AVLNode root){

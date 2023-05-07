@@ -40,6 +40,10 @@ public class AVLTreeTester {
         tree.insert(new AVLNode(-1));
         System.out.println("current tree: " + tree + "\n");
 
+        System.out.println("Result of findMin() :" + tree.findMin(tree.getRoot()));
+        System.out.println("Result of searching for 10 in the tree: " + tree.search(tree.getRoot(), 10));
+        System.out.println("Result of searching for 22 in the tree: " + tree.search(tree.getRoot(), 22));
+
         System.out.println("Done testing AVLTree class.");
     }
 
@@ -438,7 +442,7 @@ public class AVLTreeTester {
         // rootRightLeftRotateTester();
         // rootLeftRightRotateTester();
         // rightRotateTester();
-        leftRotateTester();
+        // leftRotateTester();
         // leftRightRotateTester();
         // rightLeftRotateTester();
         // deleteRootTester();
