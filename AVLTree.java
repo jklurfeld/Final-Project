@@ -160,7 +160,6 @@ public class AVLTree extends BinSearchTree{
         return y;
     }
 
-    // TODO: stop supporting inserting two nodes with the same data?
     public void insertR(AVLNode node, AVLNode root){
         if (root == null){
             setRoot(node);
@@ -174,7 +173,7 @@ public class AVLTree extends BinSearchTree{
                 insertR(node, root.getRight());
             }
         }
-        if (node.getData() <= root.getData()){
+        if (node.getData() < root.getData()){
             if (root.getLeft() == null){
                 addLeft(node, root);
             }
@@ -183,12 +182,15 @@ public class AVLTree extends BinSearchTree{
             }
         }
 
-        // start at the root of the tree again and then start going down and checking if your children are balanced
-
         root.setHeight(1 + max(height(root.getLeft()), height(root.getRight())));
     }
 
     public void insert(AVLNode node){
+        if (search(AVLroot, node.getData())){
+            System.out.println("There is a node with this data is already in the tree.");
+            return;
+        }
+
         // insert the new node
         insertR(node, getRoot());
         // System.out.println("Tree after insertion but before rotations: " + this.toString());
@@ -361,9 +363,8 @@ public class AVLTree extends BinSearchTree{
         }
     }
 
+    // recursive delete function
     public void deleteR(AVLNode root, int data){
-        // TODO: figure out how to make a case for when the data you're looking for doesn't exist in the tree so your code doesn't throw an exception when this happens?
-
         if (root.getLeft() != null && root.getLeft().getData() == data){
             AVLNode nodeToBeDeleted = root.getLeft();
             if (nodeToBeDeleted.getRight() == null && nodeToBeDeleted.getLeft() == null){
@@ -443,11 +444,9 @@ public class AVLTree extends BinSearchTree{
         performRotations(AVLroot);
     }
 
+    // recursive delete function, but different than above because of the additional param "larger"
     // if larger is true, then the new root's data is larger than the old one
     public void deleteR(AVLNode root, int data, boolean larger){
-        // TODO: figure out how to make a case for when the data you're looking for doesn't exist in the tree so your code doesn't throw an exception when this happens?
-
-        // TODO: remember to update the heights of the nodes when you manipulate them!
         if (root.getLeft() != null && root.getLeft().getData() == data){
             AVLNode nodeToBeDeleted = root.getLeft();
             if (nodeToBeDeleted.getRight() == null && nodeToBeDeleted.getLeft() == null){
@@ -550,7 +549,14 @@ public class AVLTree extends BinSearchTree{
         performRotations(AVLroot);
     }
 
+    // wrapper for delete
     public void delete(int data){
+        // search the tree and if the data that you want to be deleted is not in the tree, then return
+        if (!search(AVLroot, data)){
+            System.out.println("The data inputted is not in this tree.");
+            return;
+        }
+
         if (AVLroot.getData() == data){
             if (AVLroot.getLeft() == null && AVLroot.getRight() == null){
                 AVLroot = null;

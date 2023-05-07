@@ -33,14 +33,14 @@ public class AVLTreeDriver {
 
             switch(option){
                 case "insert":
-                    System.out.println("insert the data of the new node:");
+                    System.out.println("input the data of the new node:");
                     tree.insert(new AVLNode(input.nextInt()));
                     input.nextLine();
                     tree.setPoints(tree.getRoot(), 1);
                     demoFrame.panel.repaint();
                     break;
                 case "delete":
-                    System.out.println("insert the data of the node to be deleted:");
+                    System.out.println("input the data of the node to be deleted:");
                     tree.delete(input.nextInt());
                     input.nextLine();
                     tree.setPoints(tree.getRoot(), 1);
