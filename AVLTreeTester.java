@@ -412,7 +412,6 @@ public class AVLTreeTester {
         tree.insert(new AVLNode(25));
         System.out.println("current tree: " + tree + "\n");
 
-        // this isn't working because it's finding the minimum value in the left subtree when it should be doing that in the right subtree
         System.out.println("Deleting 20...");
         tree.delete(20);
         System.out.println("current tree: " + tree + "\n");
@@ -420,8 +419,8 @@ public class AVLTreeTester {
         System.out.println("Done testing the deletion of a node with two children.");
     }
 
-    public static void tester(){
-        System.out.println("Creating new tree, setting root to 6, and inserting 3, 7, and 5...");
+    public static void caseThatWasntWorkingTester(){
+        System.out.println("Creating new tree, setting root to 14, and inserting 3, 17, 2, and 6...");
         AVLTree tree = new AVLTree();
         tree.setRoot(new AVLNode(14));
         tree.insert(new AVLNode(3));
@@ -435,6 +434,25 @@ public class AVLTreeTester {
         System.out.println("current tree: " + tree);
     }
 
+    public static void leftRightRotateDeletionTester(){
+        System.out.println("Creating new tree, setting root to 14, and inserting 3, 17, 2, 6, 20, and 4...");
+        AVLTree tree = new AVLTree();
+        tree.setRoot(new AVLNode(14));
+        tree.insert(new AVLNode(3));
+        tree.insert(new AVLNode(17));
+        tree.insert(new AVLNode(2));
+        tree.insert(new AVLNode(6));
+        tree.insert(new AVLNode(20));
+        tree.insert(new AVLNode(4));
+        System.out.println("current tree: " + tree);
+
+        System.out.println("Deleting 20...");
+        tree.delete(20);
+        System.out.println("current tree: " + tree);
+
+        System.out.println("Done testing left right rotation after deletion.");
+    }
+
     public static void main(String[] args){
         // classTester();
         // rootRightRotateTester();
@@ -445,10 +463,11 @@ public class AVLTreeTester {
         // leftRotateTester();
         // leftRightRotateTester();
         // rightLeftRotateTester();
-        deleteRootTester();
-        deletionOfLeafTester();
-        deletionOfNodeWithOneChildTester();
-        deletionOfNodeWithTwoChildrenTester();
-        // tester();
+        // deleteRootTester();
+        // deletionOfLeafTester();
+        // deletionOfNodeWithOneChildTester();
+        // deletionOfNodeWithTwoChildrenTester();
+        // caseThatWasntWorkingTester();
+        leftRightRotateDeletionTester();
     }
 }
