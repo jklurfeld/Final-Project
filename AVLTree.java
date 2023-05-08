@@ -17,17 +17,9 @@ public class AVLTree extends BinSearchTree{
         return false;
     }
 
-    // I thought I only needed these functions for testing and then I didn't use them for testing, but for some reason my tester code is breaking without them
-    public void addLeft(int data, AVLNode parent){
-        parent.setLeft(new AVLNode(data));
-    }
-
+    // helper functions for insertR()
     public void addLeft(AVLNode child, AVLNode parent){
         parent.setLeft(child);
-    }
-
-    public void addRight(int data, AVLNode parent){
-        parent.setRight(new AVLNode(data));
     }
 
     public void addRight(AVLNode child, AVLNode parent){
@@ -70,6 +62,9 @@ public class AVLTree extends BinSearchTree{
     }
 
     // if the boolean "left" is true then you want to do a rotation on the left subtree, else rotate on the right subtree
+    // I did it this way because the node "p" you're passing in as a parameter is really the parent of the unbalanced node,
+    // so I thought passing in this boolean as a parameter would be easier than checking the balance factors of the right and
+    // left children again
     public void rightRotate(boolean left, AVLNode p){
         if (left){
             AVLNode x = p.getLeft();
@@ -160,6 +155,7 @@ public class AVLTree extends BinSearchTree{
         return y;
     }
 
+    // is it ok that I don't support insertion of two nodes with the same data?
     public void insertR(AVLNode node, AVLNode root){
         if (root == null){
             setRoot(node);
@@ -200,6 +196,8 @@ public class AVLTree extends BinSearchTree{
     }
 
     // for use in deletions
+    // TODO: fix this so it works for the right left and left right rotations– I think it's just going to need 
+    // some other type of parameter or comparison just like the one for insertions
     public void performRotations(AVLNode root){
         if (root == AVLroot){
             int rootBalance = getBalance(AVLroot);
@@ -242,7 +240,6 @@ public class AVLTree extends BinSearchTree{
             if (getBalance(root.getRight()) > 1){
                 if (getBalance(root.getRight().getLeft()) >= 0){
                     System.out.println("Performing right rotation in right subtree...");
-                    // this isn't working because your "right rotate" function only works for when the rotation needs to be in the left subtree
                     rightRotate(false, root);
                 }
                 else {
@@ -281,6 +278,8 @@ public class AVLTree extends BinSearchTree{
     }
 
     // for use in insertions
+    // this perform rotations method also takes in the parameter newNode because it determines where to do rotations based on
+    // where newNode was inserted
     public void performRotations(AVLNode root, AVLNode newNode){
         if (root == AVLroot){
             int rootBalance = getBalance(AVLroot);
@@ -325,7 +324,6 @@ public class AVLTree extends BinSearchTree{
             if (getBalance(root.getRight()) > 1){
                 if (newNode.getData() < root.getRight().getLeft().getData()){
                     System.out.println("Performing right rotation in right subtree...");
-                    // this isn't working because your "right rotate" function only works for when the rotation needs to be in the left subtree
                     rightRotate(false, root);
                 }
                 else {
@@ -369,7 +367,6 @@ public class AVLTree extends BinSearchTree{
             AVLNode nodeToBeDeleted = root.getLeft();
             if (nodeToBeDeleted.getRight() == null && nodeToBeDeleted.getLeft() == null){
                 root.setLeft(null);
-                // TODO: change this to just say root.setHeight = height(root.getRight()) + 1? and if you change this and it works, change other instances of it too
                 root.setHeight(max(height(root.getLeft()), height(root.getRight())) + 1);
             }
             else if (nodeToBeDeleted.getLeft() == null && nodeToBeDeleted.getRight() != null){
@@ -384,22 +381,21 @@ public class AVLTree extends BinSearchTree{
             }
             else {
                 AVLNode newRoot = findMin(nodeToBeDeleted.getRight());
-                boolean bigger;
-                if (newRoot.getData() > nodeToBeDeleted.getData()){
-                    bigger = true;
-                }
-                else {
-                    bigger = false;
-                }
+                // boolean bigger;
+                // if (newRoot.getData() > nodeToBeDeleted.getData()){
+                //     bigger = true;
+                // }
+                // else {
+                //     bigger = false;
+                // }
                 nodeToBeDeleted.setData(newRoot.getData());
-                // deleteR(root.getRight(), newRoot.getData());
-                deleteR(nodeToBeDeleted, newRoot.getData(), bigger);
+                deleteR(nodeToBeDeleted, newRoot.getData());
+                // deleteR(nodeToBeDeleted, newRoot.getData(), bigger);
             }
             performRotations(AVLroot);
             return;
         }
         else if (root.getRight() != null && root.getRight().getData() == data){
-            // System.out.println("inside root.getRight() == data if statement");
             AVLNode nodeToBeDeleted = root.getRight();
             if (nodeToBeDeleted.getRight() == null && nodeToBeDeleted.getLeft() == null){
                 root.setRight(null);
@@ -417,20 +413,19 @@ public class AVLTree extends BinSearchTree{
             }
             else {
                 AVLNode newRoot = findMin(nodeToBeDeleted.getRight());
-                boolean bigger;
-                if (newRoot.getData() > nodeToBeDeleted.getData()){
-                    bigger = true;
-                }
-                else {
-                    bigger = false;
-                }
+                // boolean bigger;
+                // if (newRoot.getData() > nodeToBeDeleted.getData()){
+                //     bigger = true;
+                // }
+                // else {
+                //     bigger = false;
+                // }
                 nodeToBeDeleted.setData(newRoot.getData());
-                // deleteR(root.getRight(), newRoot.getData());
+                deleteR(nodeToBeDeleted, newRoot.getData());
                 // System.out.println("tree before deleting extra copied node: " + this.toString());
-                deleteR(nodeToBeDeleted, newRoot.getData(), bigger);
+                // deleteR(nodeToBeDeleted, newRoot.getData(), bigger);
             }
             performRotations(AVLroot);
-            // when you return here, you don't get to perform the rotations
             return;
         }
         else if (data < root.getData()){
@@ -440,114 +435,123 @@ public class AVLTree extends BinSearchTree{
             deleteR(root.getRight(), data);
         }
 
+        // this case happens when you "deleted" a node by replacing it's data with the minimum from its right subtree,
+        // and now you're going back through that right subtree to really delete the node that you took the data from
+        else if (data == root.getData()){
+            deleteR(root.getRight(), data);
+        }
+
         // check the balances and perform rotations
         performRotations(AVLroot);
     }
 
     // recursive delete function, but different than above because of the additional param "larger"
     // if larger is true, then the new root's data is larger than the old one
-    public void deleteR(AVLNode root, int data, boolean larger){
-        if (root.getLeft() != null && root.getLeft().getData() == data){
-            AVLNode nodeToBeDeleted = root.getLeft();
-            if (nodeToBeDeleted.getRight() == null && nodeToBeDeleted.getLeft() == null){
-                root.setLeft(null);
-                // TODO: change this to just say root.setHeight = height(root.getRight()) + 1? and if you change this and it works, change other instances of it too
-                root.setHeight(max(height(root.getLeft()), height(root.getRight())) + 1);
-            }
-            else if (nodeToBeDeleted.getLeft() == null && nodeToBeDeleted.getRight() != null){
-                nodeToBeDeleted.setData(nodeToBeDeleted.getRight().getData());
-                nodeToBeDeleted.setRight(null);
-                nodeToBeDeleted.setHeight(max(height(nodeToBeDeleted.getLeft()), height(nodeToBeDeleted.getRight())) + 1);
-            }
-            else if (nodeToBeDeleted.getLeft() != null && nodeToBeDeleted.getRight() == null){
-                nodeToBeDeleted.setData(nodeToBeDeleted.getLeft().getData());
-                nodeToBeDeleted.setLeft(null);
-                nodeToBeDeleted.setHeight(max(height(nodeToBeDeleted.getLeft()), height(nodeToBeDeleted.getRight())) + 1);
-            }
-            else {
-                AVLNode newRoot = findMin(nodeToBeDeleted.getRight());
-                boolean bigger;
-                if (newRoot.getData() > nodeToBeDeleted.getData()){
-                    bigger = true;
-                }
-                else {
-                    bigger = false;
-                }
-                nodeToBeDeleted.setData(newRoot.getData());
-                // deleteR(root.getRight(), newRoot.getData());
-                deleteR(nodeToBeDeleted, newRoot.getData(), bigger);
-            }
-            performRotations(AVLroot);
-            return;
-        }
-        else if (root.getRight() != null && root.getRight().getData() == data){
-            // System.out.println("inside root.getRight() == data if statement");
-            AVLNode nodeToBeDeleted = root.getRight();
-            if (nodeToBeDeleted.getRight() == null && nodeToBeDeleted.getLeft() == null){
-                root.setRight(null);
-                root.setHeight(max(height(root.getLeft()), height(root.getRight())) + 1);
-            }
-            else if (nodeToBeDeleted.getLeft() == null && nodeToBeDeleted.getRight() != null){
-                nodeToBeDeleted.setData(nodeToBeDeleted.getRight().getData());
-                nodeToBeDeleted.setRight(null);
-                nodeToBeDeleted.setHeight(max(height(nodeToBeDeleted.getLeft()), height(nodeToBeDeleted.getRight())) + 1);
-            }
-            else if (nodeToBeDeleted.getLeft() != null && nodeToBeDeleted.getRight() == null){
-                nodeToBeDeleted.setData(nodeToBeDeleted.getLeft().getData());
-                nodeToBeDeleted.setLeft(null);
-                nodeToBeDeleted.setHeight(max(height(nodeToBeDeleted.getLeft()), height(nodeToBeDeleted.getRight())) + 1);
-            }
-            else {
-                AVLNode newRoot = findMin(nodeToBeDeleted.getRight());
-                boolean bigger;
-                if (newRoot.getData() > nodeToBeDeleted.getData()){
-                    bigger = true;
-                }
-                else {
-                    bigger = false;
-                }
-                nodeToBeDeleted.setData(newRoot.getData());
-                // deleteR(root.getRight(), newRoot.getData());
-                // System.out.println("tree before deleting extra copied node: " + this.toString());
-                deleteR(nodeToBeDeleted, newRoot.getData(), bigger);
-            }
-            performRotations(AVLroot);
-            return;
-        }
-        else if (!larger){
-            deleteR(root.getLeft(), data);
-        }
-        else if (larger){
-            deleteR(root.getRight(), data);
-        }
+    // this method exists because when the node to be deleted is larger than
+    // public void deleteR(AVLNode root, int data, boolean larger){
+    //     if (root.getLeft() != null && root.getLeft().getData() == data){
+    //         AVLNode nodeToBeDeleted = root.getLeft();
+    //         if (nodeToBeDeleted.getRight() == null && nodeToBeDeleted.getLeft() == null){
+    //             root.setLeft(null);
+    //             root.setHeight(max(height(root.getLeft()), height(root.getRight())) + 1);
+    //         }
+    //         else if (nodeToBeDeleted.getLeft() == null && nodeToBeDeleted.getRight() != null){
+    //             nodeToBeDeleted.setData(nodeToBeDeleted.getRight().getData());
+    //             nodeToBeDeleted.setRight(null);
+    //             nodeToBeDeleted.setHeight(max(height(nodeToBeDeleted.getLeft()), height(nodeToBeDeleted.getRight())) + 1);
+    //         }
+    //         else if (nodeToBeDeleted.getLeft() != null && nodeToBeDeleted.getRight() == null){
+    //             nodeToBeDeleted.setData(nodeToBeDeleted.getLeft().getData());
+    //             nodeToBeDeleted.setLeft(null);
+    //             nodeToBeDeleted.setHeight(max(height(nodeToBeDeleted.getLeft()), height(nodeToBeDeleted.getRight())) + 1);
+    //         }
+    //         else {
+    //             AVLNode newRoot = findMin(nodeToBeDeleted.getRight());
+    //             boolean bigger;
+    //             if (newRoot.getData() > nodeToBeDeleted.getData()){
+    //                 bigger = true;
+    //             }
+    //             else {
+    //                 bigger = false;
+    //             }
+    //             nodeToBeDeleted.setData(newRoot.getData());
+    //             // deleteR(root.getRight(), newRoot.getData());
+    //             deleteR(nodeToBeDeleted, newRoot.getData(), bigger);
+    //         }
+    //         performRotations(AVLroot);
+    //         return;
+    //     }
+    //     else if (root.getRight() != null && root.getRight().getData() == data){
+    //         // System.out.println("inside root.getRight() == data if statement");
+    //         AVLNode nodeToBeDeleted = root.getRight();
+    //         if (nodeToBeDeleted.getRight() == null && nodeToBeDeleted.getLeft() == null){
+    //             root.setRight(null);
+    //             root.setHeight(max(height(root.getLeft()), height(root.getRight())) + 1);
+    //         }
+    //         else if (nodeToBeDeleted.getLeft() == null && nodeToBeDeleted.getRight() != null){
+    //             nodeToBeDeleted.setData(nodeToBeDeleted.getRight().getData());
+    //             nodeToBeDeleted.setRight(null);
+    //             nodeToBeDeleted.setHeight(max(height(nodeToBeDeleted.getLeft()), height(nodeToBeDeleted.getRight())) + 1);
+    //         }
+    //         else if (nodeToBeDeleted.getLeft() != null && nodeToBeDeleted.getRight() == null){
+    //             nodeToBeDeleted.setData(nodeToBeDeleted.getLeft().getData());
+    //             nodeToBeDeleted.setLeft(null);
+    //             nodeToBeDeleted.setHeight(max(height(nodeToBeDeleted.getLeft()), height(nodeToBeDeleted.getRight())) + 1);
+    //         }
+    //         else {
+    //             AVLNode newRoot = findMin(nodeToBeDeleted.getRight());
+    //             boolean bigger;
+    //             // isn't the newRoot's data always going to be bigger than nodeToBeDeleted's data because it's coming from
+    //             // nodeToBeDeleted's right subtree? I am confused bc I remember this not working without it but maybe there was
+    //             // a different problem
+    //             if (newRoot.getData() > nodeToBeDeleted.getData()){
+    //                 bigger = true;
+    //             }
+    //             else {
+    //                 bigger = false;
+    //             }
+    //             nodeToBeDeleted.setData(newRoot.getData());
+    //             // deleteR(root.getRight(), newRoot.getData());
+    //             // System.out.println("tree before deleting extra copied node: " + this.toString());
+    //             deleteR(nodeToBeDeleted, newRoot.getData(), bigger);
+    //         }
+    //         performRotations(AVLroot);
+    //         return;
+    //     }
+    //     else if (!larger){
+    //         deleteR(root.getLeft(), data);
+    //     }
+    //     else if (larger){
+    //         deleteR(root.getRight(), data);
+    //     }
 
-        // check the balances and perform rotations
-        int rootBalance = getBalance(AVLroot);
-        if (rootBalance > 1){
-            if (AVLroot.getLeft().getLeft() != null){
-                System.out.println("Performing root right rotation...");
-                rootRightRotate(AVLroot);
-            }
-            else {
-                // left right rotation
-                System.out.println("Performing root left right rotation...");
-                AVLroot.setLeft(rootLeftRotate(AVLroot.getLeft()));
-                rootRightRotate(AVLroot);
-            }
-        }
-        else if (rootBalance < -1){
-            if (AVLroot.getRight().getRight() != null){
-                System.out.println("Performing root left rotation...");
-                rootLeftRotate(AVLroot);
-            }
-            else {
-                System.out.println("Performing root right left rotation...");
-                AVLroot.setRight(rootRightRotate(AVLroot.getRight()));
-                rootLeftRotate(AVLroot);
-            }
-        }
-        performRotations(AVLroot);
-    }
+    //     // is this just leftover from earlier? b/c I'm pretty sure this code already happens in perform rotations
+    //     // int rootBalance = getBalance(AVLroot);
+    //     // if (rootBalance > 1){
+    //     //     if (AVLroot.getLeft().getLeft() != null){
+    //     //         System.out.println("Performing root right rotation...");
+    //     //         rootRightRotate(AVLroot);
+    //     //     }
+    //     //     else {
+    //     //         // left right rotation
+    //     //         System.out.println("Performing root left right rotation...");
+    //     //         AVLroot.setLeft(rootLeftRotate(AVLroot.getLeft()));
+    //     //         rootRightRotate(AVLroot);
+    //     //     }
+    //     // }
+    //     // else if (rootBalance < -1){
+    //     //     if (AVLroot.getRight().getRight() != null){
+    //     //         System.out.println("Performing root left rotation...");
+    //     //         rootLeftRotate(AVLroot);
+    //     //     }
+    //     //     else {
+    //     //         System.out.println("Performing root right left rotation...");
+    //     //         AVLroot.setRight(rootRightRotate(AVLroot.getRight()));
+    //     //         rootLeftRotate(AVLroot);
+    //     //     }
+    //     // }
+    //     performRotations(AVLroot);
+    // }
 
     // wrapper for delete
     public void delete(int data){
@@ -571,24 +575,21 @@ public class AVLTree extends BinSearchTree{
                 AVLroot = AVLroot.getLeft();
                 AVLroot.setHeight(max(height(AVLroot.getLeft()), height(AVLroot.getRight())) + 1);
             }
-            else {
-                // maybe you should have a function that does the stuff required for when a node to be deleted has two children
-                // and then here you'd just call that function and update the root
-
-                // maybe you should just have function for all of these cases?      
+            else {      
                 AVLNode newRoot = findMin(AVLroot.getRight());
-                boolean bigger;
-                if (newRoot.getData() > AVLroot.getData()){
-                    bigger = true;
-                }
-                else {
-                    bigger = false;
-                }
+                // boolean bigger;
+                // if (newRoot.getData() > AVLroot.getData()){
+                //     bigger = true;
+                // }
+                // else {
+                //     bigger = false;
+                // }
                 // System.out.println("minimum of right subtree: " + newRoot);
                 AVLroot.setData(newRoot.getData());
                 // System.out.println("IN WRAPPER tree after setting data of root to the min of the right subtree: " + this.toString());
                 AVLroot.setHeight(max(height(AVLroot.getLeft()), height(AVLroot.getRight())) + 1);
-                deleteR(AVLroot, newRoot.getData(), bigger);
+                deleteR(AVLroot, newRoot.getData());
+                // deleteR(AVLroot, newRoot.getData(), bigger);
             }
             // AVLroot.setHeight(max(height(AVLroot.getLeft()), height(AVLroot.getRight())) + 1);
             performRotations(AVLroot);

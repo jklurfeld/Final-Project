@@ -407,14 +407,14 @@ public class AVLTreeTester {
         System.out.println("Inserting 0, 5, 20, 40, and 25");
         tree.insert(new AVLNode(0));
         tree.insert(new AVLNode(5));
-        tree.insert(new AVLNode(13));
-        tree.insert(new AVLNode(11));
-        tree.insert(new AVLNode(14));
+        tree.insert(new AVLNode(20));
+        tree.insert(new AVLNode(40));
+        tree.insert(new AVLNode(25));
         System.out.println("current tree: " + tree + "\n");
 
         // this isn't working because it's finding the minimum value in the left subtree when it should be doing that in the right subtree
-        System.out.println("Deleting 15...");
-        tree.delete(15);
+        System.out.println("Deleting 20...");
+        tree.delete(20);
         System.out.println("current tree: " + tree + "\n");
 
         System.out.println("Done testing the deletion of a node with two children.");
@@ -445,10 +445,10 @@ public class AVLTreeTester {
         // leftRotateTester();
         // leftRightRotateTester();
         // rightLeftRotateTester();
-        // deleteRootTester();
-        // deletionOfLeafTester();
-        // deletionOfNodeWithOneChildTester();
-        // deletionOfNodeWithTwoChildrenTester();
+        deleteRootTester();
+        deletionOfLeafTester();
+        deletionOfNodeWithOneChildTester();
+        deletionOfNodeWithTwoChildrenTester();
         // tester();
     }
 }
