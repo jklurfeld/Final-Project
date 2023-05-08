@@ -8,10 +8,6 @@ public class MyPanel extends JPanel{
 
     GeomAVLTree tree;
 
-    // ArrayList<Point> points;
-    // ArrayList<Vertex> vertices;
-    // LinkedList<Edge> edges;
-
     MyPanel(){
         this.setPreferredSize(new Dimension(500,500));
     }

@@ -14,7 +14,7 @@ public class AVLTreeTester {
         System.out.println("Result of getRoot(): " + tree.getRoot());
         System.out.println("current tree: " + tree + "\n");
 
-        // TODO: test max, height, getBalance, and findMin()?
+        // TODO: test max, height, and getBalance?
 
         System.out.println("Inserting 1 in tree...");
         tree.insert(new AVLNode(1));
@@ -291,7 +291,6 @@ public class AVLTreeTester {
         tree.delete(1);
         System.out.println("current tree: " + tree + "\n");
 
-        // TODO: test these two cases
         System.out.println("Testing deleting root when it has two children...");
         System.out.println("Inserting 3 and 15 into the tree...");
         tree.insert(new AVLNode(3));
@@ -468,6 +467,6 @@ public class AVLTreeTester {
         // deletionOfNodeWithOneChildTester();
         // deletionOfNodeWithTwoChildrenTester();
         // caseThatWasntWorkingTester();
-        leftRightRotateDeletionTester();
+        // leftRightRotateDeletionTester();
     }
 }

@@ -1,9 +1,4 @@
 public class GeomAVLTree extends AVLTree{
-    /* this would be inefficient, but in order to determine what level each node is and what y-coordinate it needs, 
-    you could traverse the tree and assign each node a "level" variable 
-     * and then when you are assigning points to each node, the y-coordinate would be whatever the lowest y-coordinate is * level,
-     * so I think I should have a GeomAVLNode class? and then update their points and levels from this class?
-    */
 
     public void setPoints(AVLNode root, int level){
         if (root == null){
@@ -15,7 +10,7 @@ public class GeomAVLTree extends AVLTree{
         }
         if (root.getLeft() != null){
             // this next line of code is going to make it go off the screen, 
-            // maybe you could make it so everything shifts left if something's x coordinate is less than 0
+            // maybe you could make it so everything shifts right if something's x coordinate is less than 0
             root.getLeft().p.x = root.p.x - 125/level;
             root.getLeft().p.y = root.p.y + 100;
             setPoints(root.getLeft(), level+1);

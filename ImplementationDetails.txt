@@ -1,5 +1,16 @@
 External Resources:
+    - used to get a sense of how to use repaint: https://www2.seas.gwu.edu/~rhyspj/fall05cs143/lab8/lab88.html
+    - this is the first resource that I looked at on how to implement an AVL Tree and I did look at the Java code given on how to insert a node, but I quickly realized
+    that it didn't work, so I had to do a lot of debugging and figuring out on my own and with help from Alexandra: https://www.geeksforgeeks.org/insertion-in-an-avl-tree/
+    - used to explain what an AVL Tree was and looked at the pseudocode given on how to implement insertion and deletion but not the Java code: https://www.programiz.com/dsa/avl-tree
 
 What I figured out on my own:
+    - when to use wrappers
+    - For insertion:
+        - I had to have different cases for if the root of the whole tree was unbalanced or any other node, because when rotating a normal node in the tree,
+        I had to do it from the parent of that node so that no pointers were pointing to the wrong thing after the rotation process. This was something that I 
+        didn't see in the resources listed above. Also as a result of looking at the unbalanced node from its parent, I had to add another parameter to my rotation
+        functions to tell the function whether the rotation was supposed to happen in the left or right subtree.
 
-What I want to add if i had more time: 
+What I want to add if i had more time:
+    - I was able to implement all of the things that I set out to do
