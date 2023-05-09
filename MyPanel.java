@@ -19,6 +19,7 @@ public class MyPanel extends JPanel{
 
     public void paint(Graphics g){
         Graphics2D g2D = (Graphics2D) g;
+        g2D.clearRect(0, 0, 500, 500);
         g2D.setStroke(new BasicStroke(3));
         drawTree(tree.getRoot(), g2D);
     }

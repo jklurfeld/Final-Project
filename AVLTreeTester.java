@@ -9,23 +9,32 @@ public class AVLTreeTester {
         System.out.println("Result of getRoot(): " + tree.getRoot());
         System.out.println("current tree: " + tree + "\n");
 
+        System.out.println("Inserting 5 into the tree..");
         tree.setRoot(new AVLNode(5));
         System.out.println("Result of isEmpty(): " + tree.isEmpty());
         System.out.println("Result of getRoot(): " + tree.getRoot());
+        System.out.println("Result of isBalanced(): " + isBalanced(tree, tree.getRoot()));
+        System.out.println("Result of isBinSearchTree(): " + isBinSearchTree(tree, tree.getRoot()));
         System.out.println("current tree: " + tree + "\n");
 
-        // TODO: test max, height, and getBalance?
+        // TODO: test max
 
         System.out.println("Inserting 1 in tree...");
         tree.insert(new AVLNode(1));
+        System.out.println("Result of isBalanced(): " + isBalanced(tree, tree.getRoot()));
+        System.out.println("Result of isBinSearchTree(): " + isBinSearchTree(tree, tree.getRoot()));
         System.out.println("current tree: " + tree + "\n");
 
         System.out.println("Inserting 2 in tree...");
         tree.insert(new AVLNode(2));
+        System.out.println("Result of isBalanced(): " + isBalanced(tree, tree.getRoot()));
+        System.out.println("Result of isBinSearchTree(): " + isBinSearchTree(tree, tree.getRoot()));
         System.out.println("current tree: " + tree + "\n");
 
         System.out.println("Inserting 10 in tree...");
         tree.insert(new AVLNode(10));
+        System.out.println("Result of isBalanced(): " + isBalanced(tree, tree.getRoot()));
+        System.out.println("Result of isBinSearchTree(): " + isBinSearchTree(tree, tree.getRoot()));
         System.out.println("current tree: " + tree + "\n");
         
         System.out.println("Inserting 15 in tree...");
@@ -43,6 +52,8 @@ public class AVLTreeTester {
         System.out.println("Result of findMin() :" + tree.findMin(tree.getRoot()));
         System.out.println("Result of searching for 10 in the tree: " + tree.search(tree.getRoot(), 10));
         System.out.println("Result of searching for 22 in the tree: " + tree.search(tree.getRoot(), 22));
+        System.out.println("Result of isBalanced(): " + isBalanced(tree, tree.getRoot()));
+        System.out.println("Result of isBinSearchTree(): " + isBinSearchTree(tree, tree.getRoot()));
 
         System.out.println("Done testing AVLTree class.");
     }
@@ -253,6 +264,18 @@ public class AVLTreeTester {
         System.out.println("current tree: " + tree + "\n");
 
         System.out.println("Testing right left rotation in the left subtree...");
+        AVLTree t = new AVLTree();
+        System.out.println("Inserting 10, 5, 13, 8, and 15 into the tree...");
+        t.insert(new AVLNode(10));
+        t.insert(new AVLNode(5));
+        t.insert(new AVLNode(13));
+        t.insert(new AVLNode(8));
+        t.insert(new AVLNode(15));
+        System.out.println("current tree: " + t + "\n");
+
+        System.out.println("Inserting 7 into the tree...");
+        t.insert(new AVLNode(7));
+        System.out.println("current tree: " + t + "\n");
 
         System.out.println("Done testing rightLeftRotate function.");
     }
@@ -452,6 +475,69 @@ public class AVLTreeTester {
         System.out.println("Done testing left right rotation after deletion.");
     }
 
+    public static void randomTester(int numTries){
+        for (int i = 0; i < numTries; i++){
+            AVLTree tree = new AVLTree();
+            for (int j = 0; j < 10; j++){
+                tree.insert(new AVLNode((int)(Math.random()*100)));
+                // System.out.println(tree);
+            }
+            if (!isBalanced(tree, tree.getRoot())){
+                System.out.println("Tree that is not balanced: " + tree);
+                return;
+            }
+            if (!isBinSearchTree(tree, tree.getRoot())){
+                System.out.println("Tree that's not a binSearchTree: " + tree);
+            }
+        }
+    }
+
+    public static boolean isBalanced(AVLTree tree, AVLNode root){
+        if (tree.getBalance(root) > 1 || tree.getBalance(root) < -1){
+            return false;
+        }
+        else if (root.getRight() != null){
+            isBalanced(tree, root.getRight());
+        }
+        else if (root.getLeft() != null){
+            isBalanced(tree, root.getLeft());
+        }
+        return true;
+    }
+
+    public static boolean isBinSearchTree(AVLTree tree, AVLNode root){
+        if (root.getRight() != null){
+            if (root.getRight().getData() < root.getData()){
+                return false;
+            }
+            isBinSearchTree(tree, root.getRight());
+        }
+        if (root.getLeft() != null){
+            if (root.getLeft().getData() > root.getData()){
+                return false;
+            }
+            isBinSearchTree(tree, root.getLeft());
+        }
+        return true;
+    }
+
+    public static void badCase(){
+        // System.out.println("Creating new tree, setting root to 53, and inserting 21, 58, 2, 37, 72, 20, and 30...");
+        AVLTree tree = new AVLTree();
+        tree.setRoot(new AVLNode(11));
+        tree.insert(new AVLNode(4));
+        tree.insert(new AVLNode(71));
+        tree.insert(new AVLNode(0));
+        tree.insert(new AVLNode(52));
+        tree.insert(new AVLNode(73));
+        tree.insert(new AVLNode(56));
+        System.out.println("current tree: " + tree + "\n");
+
+        // System.out.println("inserting 97...");
+        tree.insert(new AVLNode(54));
+        System.out.println("current tree: " + tree);
+    }
+
     public static void main(String[] args){
         // classTester();
         // rootRightRotateTester();
@@ -468,5 +554,7 @@ public class AVLTreeTester {
         // deletionOfNodeWithTwoChildrenTester();
         // caseThatWasntWorkingTester();
         // leftRightRotateDeletionTester();
+        randomTester(100);
+        // badCase();
     }
 }

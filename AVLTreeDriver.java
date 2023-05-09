@@ -37,7 +37,6 @@ public class AVLTreeDriver {
                     tree.insert(new AVLNode(input.nextInt()));
                     input.nextLine();
                     tree.setPoints(tree.getRoot(), 1);
-                    // Is this how I should be calling repaint? Why does this work even though I didn't write a repaint method?
                     demoFrame.panel.repaint();
                     break;
                 case "delete":

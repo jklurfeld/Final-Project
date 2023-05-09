@@ -1,0 +1,20 @@
+Things to ask Alexandra:
+    - How long of a file name is too long?
+    - In the last class on Wednesday, my section was told that all we had to submit in class was our current code and that the implementation details and user manual were for the final
+    version, hence why Ileana boxed in "SUBMIT TODAY the version of the project that you presented" and the other things were to add for the final version 
+    - Do I need to write testers for the little helper methods that I have? i.e. max, height, getBalance, all of the methods in AVLNode?
+    - Is it necessary that I do the random testing and checking? Is this what you're going to do when you're grading my project?
+        - If I do that, after how many random trees do I decide that it's good?
+        - If I do the random checking, how should it decide between insertion and deletion, because if I make them both equally likely, then the tree isn't going to get much bigger
+    - For how many levels of a tree does my visualization have to be good and working and not overlapping?
+
+Answers:
+    - add a document that says what you changed for each version of the project
+    - submit each version with the final version
+    - for testing random trees:
+        - create random list of numbers, then check that they're balanced, then check that they're a binary search tree
+        - then try to delete a random number from the list and see if it works
+        - only print if it fails, and if it doesn't work then print it out
+        - do it 10, 100 times
+    - insertion, check balance factor of your parent (but not you bc you're gonna be balanced) and then keep going up
+    - deletion, check balance factor of you and then you go up

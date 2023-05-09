@@ -8,6 +8,7 @@ public class AVLTree extends BinSearchTree{
 
     public void setRoot(AVLNode newRoot){
         AVLroot = newRoot;
+        AVLroot.setParent(null);
     }
 
     public boolean isEmpty(){
@@ -20,10 +21,12 @@ public class AVLTree extends BinSearchTree{
     // helper functions for insertR()
     public void addLeft(AVLNode child, AVLNode parent){
         parent.setLeft(child);
+        child.setParent(parent);
     }
 
     public void addRight(AVLNode child, AVLNode parent){
         parent.setRight(child);
+        child.setParent(parent);
     }
 
     public int max(int a, int b){
@@ -54,7 +57,12 @@ public class AVLTree extends BinSearchTree{
         }
         AVLNode T2 = x.getRight();
         x.setRight(node);
+        node.setParent(x);
         node.setLeft(T2);
+        if (T2 != null){
+            T2.setParent(node);
+        }
+        // T2.setParent(node);
 
         node.setHeight(max(height(node.getLeft()), height(node.getRight())) + 1);
         x.setHeight(max(height(x.getLeft()), height(x.getRight())) + 1);
@@ -71,8 +79,13 @@ public class AVLTree extends BinSearchTree{
             AVLNode y = x.getLeft();
             AVLNode b = y.getRight();
             p.setLeft(y);
+            y.setParent(p);
             y.setRight(x);
+            x.setParent(y);
             x.setLeft(b);
+            if (b != null){
+                b.setParent(x);
+            }
             p.setHeight(max(height(p.getLeft()), height(p.getRight())) + 1);
             x.setHeight(max(height(x.getLeft()), height(x.getRight())) + 1);
             y.setHeight(max(height(y.getLeft()), height(y.getRight())) + 1);
@@ -82,8 +95,48 @@ public class AVLTree extends BinSearchTree{
             AVLNode y = x.getLeft();
             AVLNode b = y.getRight();
             p.setRight(y);
+            y.setParent(p);
             y.setRight(x);
+            x.setParent(y);
             x.setLeft(b);
+            if (b != null){
+                b.setParent(x);
+            }
+            p.setHeight(max(height(p.getLeft()), height(p.getRight())) + 1);
+            x.setHeight(max(height(x.getLeft()), height(x.getRight())) + 1);
+            y.setHeight(max(height(y.getLeft()), height(y.getRight())) + 1);
+        }
+    }
+
+    public void rightRotate(AVLNode p, AVLNode child){
+        if (p.getLeft() == child){
+            AVLNode x = p.getLeft();
+            AVLNode y = x.getLeft();
+            AVLNode b = y.getRight();
+            p.setLeft(y);
+            y.setParent(p);
+            y.setRight(x);
+            x.setParent(y);
+            x.setLeft(b);
+            if (b != null){
+                b.setParent(x);
+            }
+            p.setHeight(max(height(p.getLeft()), height(p.getRight())) + 1);
+            x.setHeight(max(height(x.getLeft()), height(x.getRight())) + 1);
+            y.setHeight(max(height(y.getLeft()), height(y.getRight())) + 1);
+        }
+        else {
+            AVLNode x = p.getRight();
+            AVLNode y = x.getLeft();
+            AVLNode b = y.getRight();
+            p.setRight(y);
+            y.setParent(p);
+            y.setRight(x);
+            x.setParent(y);
+            x.setLeft(b);
+            if (b != null){
+                b.setParent(x);
+            }
             p.setHeight(max(height(p.getLeft()), height(p.getRight())) + 1);
             x.setHeight(max(height(x.getLeft()), height(x.getRight())) + 1);
             y.setHeight(max(height(y.getLeft()), height(y.getRight())) + 1);
@@ -97,7 +150,11 @@ public class AVLTree extends BinSearchTree{
         }
         AVLNode T2 = y.getLeft();
         y.setLeft(x);
+        x.setParent(y);
         x.setRight(T2);
+        if (T2 != null){
+            T2.setParent(x);
+        }
         x.setHeight(max(height(x.getLeft()), height(x.getRight())) + 1);
         y.setHeight(max(height(y.getLeft()), height(y.getRight())) + 1);
         return y;
@@ -110,8 +167,13 @@ public class AVLTree extends BinSearchTree{
             AVLNode y = x.getRight();
             AVLNode b = y.getLeft();
             p.setLeft(y);
+            y.setParent(p);
             y.setLeft(x);
+            x.setParent(y);
             x.setRight(b);
+            if (b != null){
+                b.setParent(x);
+            }
             p.setHeight(max(height(p.getLeft()), height(p.getRight())) + 1);
             x.setHeight(max(height(x.getLeft()), height(x.getRight())) + 1);
             y.setHeight(max(height(y.getLeft()), height(y.getRight())) + 1);
@@ -121,8 +183,48 @@ public class AVLTree extends BinSearchTree{
             AVLNode y = x.getRight();
             AVLNode b = y.getLeft();
             p.setRight(y);
+            y.setParent(p);
             y.setLeft(x);
+            x.setParent(y);
             x.setRight(b);
+            if (b != null){
+                b.setParent(x);
+            }
+            p.setHeight(max(height(p.getLeft()), height(p.getRight())) + 1);
+            x.setHeight(max(height(x.getLeft()), height(x.getRight())) + 1);
+            y.setHeight(max(height(y.getLeft()), height(y.getRight())) + 1);
+        }
+    }
+
+    public void leftRotate(AVLNode p, AVLNode child){
+        if (p.getLeft() == child){
+            AVLNode x = p.getLeft();
+            AVLNode y = x.getRight();
+            AVLNode b = y.getLeft();
+            p.setLeft(y);
+            y.setParent(p);
+            y.setLeft(x);
+            x.setParent(y);
+            x.setRight(b);
+            if (b != null){
+                b.setParent(x);
+            }
+            p.setHeight(max(height(p.getLeft()), height(p.getRight())) + 1);
+            x.setHeight(max(height(x.getLeft()), height(x.getRight())) + 1);
+            y.setHeight(max(height(y.getLeft()), height(y.getRight())) + 1);
+        }
+        else {
+            AVLNode x = p.getRight();
+            AVLNode y = x.getRight();
+            AVLNode b = y.getLeft();
+            p.setRight(y);
+            y.setParent(p);
+            y.setLeft(x);
+            x.setParent(y);
+            x.setRight(b);
+            if (b != null){
+                b.setParent(x);
+            }
             p.setHeight(max(height(p.getLeft()), height(p.getRight())) + 1);
             x.setHeight(max(height(x.getLeft()), height(x.getRight())) + 1);
             y.setHeight(max(height(y.getLeft()), height(y.getRight())) + 1);
@@ -134,8 +236,13 @@ public class AVLTree extends BinSearchTree{
         AVLNode y = x.getRight();
         AVLNode b = y.getLeft();
         p.setLeft(y);
+        y.setParent(p);
         y.setLeft(x);
+        x.setParent(y);
         x.setRight(b);
+        if (b != null){
+            b.setParent(x);
+        }
         p.setHeight(max(height(p.getLeft()), height(p.getRight())) + 1);
         x.setHeight(max(height(x.getLeft()), height(x.getRight())) + 1);
         y.setHeight(max(height(y.getLeft()), height(y.getRight())) + 1);
@@ -147,8 +254,13 @@ public class AVLTree extends BinSearchTree{
         AVLNode y = x.getLeft();
         AVLNode b = y.getRight();
         p.setRight(y);
+        y.setParent(p);
         y.setRight(x);
+        x.setParent(y);
         x.setLeft(b);
+        if (b != null){
+            b.setParent(x);
+        }
         p.setHeight(max(height(p.getLeft()), height(p.getRight())) + 1);
         x.setHeight(max(height(x.getLeft()), height(x.getRight())) + 1);
         y.setHeight(max(height(y.getLeft()), height(y.getRight())) + 1);
@@ -178,12 +290,13 @@ public class AVLTree extends BinSearchTree{
         }
 
         root.setHeight(1 + max(height(root.getLeft()), height(root.getRight())));
+        performRotations(root, node);
     }
 
     public void insert(AVLNode node){
         // doesn't support the insertion of two nodes with the same data
         if (search(AVLroot, node.getData())){
-            System.out.println("There is a node with this data is already in the tree.");
+            System.out.println("There is a node with this data already in the tree.");
             return;
         }
 
@@ -192,7 +305,7 @@ public class AVLTree extends BinSearchTree{
         // System.out.println("Tree after insertion but before rotations: " + this.toString());
 
         // check the balances and perform rotations
-        performRotations(AVLroot, node);
+        // performRotations(AVLroot, node);
     }
 
     // for use in deletions
@@ -201,23 +314,23 @@ public class AVLTree extends BinSearchTree{
             int rootBalance = getBalance(AVLroot);
             if (rootBalance > 1){
                 if (getBalance(root.getLeft())>= 0){
-                    System.out.println("Performing root right rotation...");
+                    // System.out.println("Performing root right rotation...");
                     rootRightRotate(AVLroot);
                 }
                 else {
                     // left right rotation
-                    System.out.println("Performing root left right rotation...");
+                    // System.out.println("Performing root left right rotation...");
                     AVLroot.setLeft(rootLeftRotate(AVLroot.getLeft()));
                     rootRightRotate(AVLroot);
                 }
             }
             else if (rootBalance < -1){
                 if (getBalance(root.getRight()) <= 0){
-                    System.out.println("Performing root left rotation...");
+                    // System.out.println("Performing root left rotation...");
                     rootLeftRotate(AVLroot);
                 }
                 else {
-                    System.out.println("Performing root right left rotation...");
+                    // System.out.println("Performing root right left rotation...");
                     AVLroot.setRight(rootRightRotate(AVLroot.getRight()));
                     rootLeftRotate(AVLroot);
                 }
@@ -226,22 +339,22 @@ public class AVLTree extends BinSearchTree{
         if (root.getRight() != null){
             if (getBalance(root.getRight()) < -1){
                 if (getBalance(root.getRight().getRight()) <= 0){
-                    System.out.println("Performing left rotation in right subtree...");
+                    // System.out.println("Performing left rotation in right subtree...");
                     leftRotate(false, root);
                 }
                 else {
-                    System.out.println("Performing right left rotation in right subtree...");
+                    // System.out.println("Performing right left rotation in right subtree...");
                     root.getRight().setRight(rightLeftRotate(root.getRight()));
                     leftRotate(false, root);
                 }
             }
             if (getBalance(root.getRight()) > 1){
                 if (getBalance(root.getRight().getLeft()) >= 0){
-                    System.out.println("Performing right rotation in right subtree...");
+                    // System.out.println("Performing right rotation in right subtree...");
                     rightRotate(false, root);
                 }
                 else {
-                    System.out.println("Performing left right rotation in right subtree...");
+                    // System.out.println("Performing left right rotation in right subtree...");
                     root.getRight().setLeft(leftRightRotate(root.getRight()));
                     rightRotate(false, root);
                 }
@@ -251,22 +364,22 @@ public class AVLTree extends BinSearchTree{
         if (root.getLeft() != null){
             if (getBalance(root.getLeft()) > 1){
                 if (getBalance(root.getLeft().getLeft()) >= 0){
-                    System.out.println("Performing right rotation in left subtree...");
+                    // System.out.println("Performing right rotation in left subtree...");
                     rightRotate(true, root);
                 }
                 else {
-                    System.out.println("Performing left right rotation in left subtree...");
+                    // System.out.println("Performing left right rotation in left subtree...");
                     root.getLeft().setLeft(leftRightRotate(root.getLeft()));
                     rightRotate(true, root);
                 }
             }
             if (getBalance(root.getLeft()) < -1){
                 if (getBalance(root.getLeft().getRight()) <= 0){
-                    System.out.println("Performing left rotation in left subtree...");
+                    // System.out.println("Performing left rotation in left subtree...");
                     leftRotate(true, root);
                 }
                 else {
-                    System.out.println("Performing right left rotation in left subtree...");
+                    // System.out.println("Performing right left rotation in left subtree...");
                     root.getLeft().setRight(rightLeftRotate(root.getLeft()));
                     leftRotate(true, root);
                 }
@@ -283,12 +396,12 @@ public class AVLTree extends BinSearchTree{
             int rootBalance = getBalance(AVLroot);
             if (rootBalance > 1){
                 if (newNode.getData() < root.getLeft().getData()){
-                    System.out.println("Performing root right rotation...");
+                    // System.out.println("Performing root right rotation...");
                     rootRightRotate(AVLroot);
                 }
                 else {
                     // left right rotation
-                    System.out.println("Performing root left right rotation...");
+                    // System.out.println("Performing root left right rotation...");
                     // AVLroot.setLeft(rootLeftRotate(AVLroot.getLeft()));
                     leftRotate(true, AVLroot);
                     rootRightRotate(AVLroot);
@@ -296,67 +409,70 @@ public class AVLTree extends BinSearchTree{
             }
             else if (rootBalance < -1){
                 if (newNode.getData() > root.getRight().getData()){
-                    System.out.println("Performing root left rotation...");
+                    // System.out.println("Performing root left rotation...");
                     rootLeftRotate(AVLroot);
                 }
                 else {
-                    System.out.println("Performing root right left rotation...");
+                    // System.out.println("Performing root right left rotation...");
                     // AVLroot.setRight(rootRightRotate(AVLroot.getRight()));
                     rightRotate(false, AVLroot);
                     rootLeftRotate(AVLroot);
                 }
             }
         }
-        if (root.getRight() != null){
-            if (getBalance(root.getRight()) < -1){
-                if (newNode.getData() > root.getRight().getRight().getData()){
-                    System.out.println("Performing left rotation in right subtree...");
-                    leftRotate(false, root);
-                }
-                else {
-                    System.out.println("Performing right left rotation in right subtree...");
-                    root.getRight().setRight(rightLeftRotate(root.getRight()));
-                    leftRotate(false, root);
-                }
+        if (getBalance(root) < -1){
+            if (newNode.getData() > root.getRight().getData()){
+                // System.out.println("Performing left rotation...");
+                // System.out.println("tree before rotations: " + this);
+                leftRotate(root.getParent(), root);
             }
-            if (getBalance(root.getRight()) > 1){
-                if (newNode.getData() < root.getRight().getLeft().getData()){
-                    System.out.println("Performing right rotation in right subtree...");
-                    rightRotate(false, root);
-                }
-                else {
-                    System.out.println("Performing left right rotation in right subtree...");
-                    root.getRight().setLeft(leftRightRotate(root.getRight()));
-                    rightRotate(false, root);
-                }
+            else {
+                // System.out.println("Performing right left rotation...");
+                // System.out.println("tree before rotations: " + this);
+                root.setRight(rightLeftRotate(root));
+                leftRotate(root.getParent(), root);
             }
-            performRotations(root.getRight(), newNode);
         }
-        if (root.getLeft() != null){
-            if (getBalance(root.getLeft()) > 1){
-                if (newNode.getData() < root.getLeft().getLeft().getData()){
-                    System.out.println("Performing right rotation in left subtree...");
-                    rightRotate(true, root);
-                }
-                else {
-                    System.out.println("Performing left right rotation in left subtree...");
-                    root.getLeft().setLeft(leftRightRotate(root.getLeft()));
-                    rightRotate(true, root);
-                }
+        if (getBalance(root) > 1){
+            if (newNode.getData() < root.getLeft().getData()){
+                // System.out.println("Performing right rotation...");
+                rightRotate(root.getParent(), root);
             }
-            if (getBalance(root.getLeft()) < -1){
-                if (newNode.getData() > root.getLeft().getRight().getData()){
-                    System.out.println("Performing left rotation in left subtree...");
-                    leftRotate(true, root);
-                }
-                else {
-                    System.out.println("Performing right left rotation in left subtree...");
-                    root.getLeft().setRight(rightLeftRotate(root.getLeft()));
-                    leftRotate(true, root);
-                }
+            else {
+                // System.out.println("Performing left right rotation...");
+                root.setLeft(leftRightRotate(root));
+                rightRotate(root.getParent(), root);
             }
-            performRotations(root.getLeft(), newNode);
         }
+            // performRotations(root.getRight(), newNode);
+        
+        // if (root.getLeft() != null){
+        //     if (getBalance(root.getLeft()) > 1){
+        //         if (newNode.getData() < root.getLeft().getLeft().getData()){
+        //             System.out.println("Performing right rotation in left subtree...");
+        //             System.out.println("current tree: " + this);
+        //             rightRotate(true, root);
+        //         }
+        //         else {
+        //             System.out.println("Performing left right rotation in left subtree...");
+        //             System.out.println("current tree: " + this);
+        //             root.getLeft().setLeft(leftRightRotate(root.getLeft()));
+        //             rightRotate(true, root);
+        //         }
+        //     }
+        //     if (getBalance(root.getLeft()) < -1){
+        //         if (newNode.getData() > root.getLeft().getRight().getData()){
+        //             System.out.println("Performing left rotation in left subtree...");
+        //             leftRotate(true, root);
+        //         }
+        //         else {
+        //             System.out.println("Performing right left rotation in left subtree...");
+        //             root.getLeft().setRight(rightLeftRotate(root.getLeft()));
+        //             leftRotate(true, root);
+        //         }
+        //     }
+        //     // performRotations(root.getLeft(), newNode);
+        // }
     }
 
     // recursive delete function
