@@ -336,56 +336,53 @@ public class AVLTree extends BinSearchTree{
                 }
             }
         }
-        if (root.getRight() != null){
-            if (getBalance(root.getRight()) < -1){
-                if (getBalance(root.getRight().getRight()) <= 0){
-                    // System.out.println("Performing left rotation in right subtree...");
-                    leftRotate(false, root);
-                }
-                else {
-                    // System.out.println("Performing right left rotation in right subtree...");
-                    root.getRight().setRight(rightLeftRotate(root.getRight()));
-                    leftRotate(false, root);
-                }
+        if (getBalance(root) < -1){
+            if (getBalance(root.getRight()) <= 0){
+                // System.out.println("Performing left rotation...");
+                leftRotate(root.getParent(), root);
             }
-            if (getBalance(root.getRight()) > 1){
-                if (getBalance(root.getRight().getLeft()) >= 0){
-                    // System.out.println("Performing right rotation in right subtree...");
-                    rightRotate(false, root);
-                }
-                else {
-                    // System.out.println("Performing left right rotation in right subtree...");
-                    root.getRight().setLeft(leftRightRotate(root.getRight()));
-                    rightRotate(false, root);
-                }
+            else {
+                // System.out.println("Performing right left rotation...");
+                root.setRight(rightLeftRotate(root));
+                leftRotate(root.getParent(), root);
             }
-            performRotations(root.getRight());
         }
-        if (root.getLeft() != null){
-            if (getBalance(root.getLeft()) > 1){
-                if (getBalance(root.getLeft().getLeft()) >= 0){
-                    // System.out.println("Performing right rotation in left subtree...");
-                    rightRotate(true, root);
-                }
-                else {
-                    // System.out.println("Performing left right rotation in left subtree...");
-                    root.getLeft().setLeft(leftRightRotate(root.getLeft()));
-                    rightRotate(true, root);
-                }
+        if (getBalance(root) > 1){
+            if (getBalance(root.getRight()) >= 0){
+                // System.out.println("Performing right rotation...");
+                rightRotate(root.getParent(), root);
             }
-            if (getBalance(root.getLeft()) < -1){
-                if (getBalance(root.getLeft().getRight()) <= 0){
-                    // System.out.println("Performing left rotation in left subtree...");
-                    leftRotate(true, root);
-                }
-                else {
-                    // System.out.println("Performing right left rotation in left subtree...");
-                    root.getLeft().setRight(rightLeftRotate(root.getLeft()));
-                    leftRotate(true, root);
-                }
+            else {
+                // System.out.println("Performing left right rotation...");
+                root.setLeft(leftRightRotate(root));
+                rightRotate(root.getParent(), root);
             }
-            performRotations(root.getLeft());
         }
+        // if (root.getLeft() != null){
+        //     if (getBalance(root.getLeft()) > 1){
+        //         if (getBalance(root.getLeft().getLeft()) >= 0){
+        //             // System.out.println("Performing right rotation in left subtree...");
+        //             rightRotate(true, root);
+        //         }
+        //         else {
+        //             // System.out.println("Performing left right rotation in left subtree...");
+        //             root.getLeft().setLeft(leftRightRotate(root.getLeft()));
+        //             rightRotate(true, root);
+        //         }
+        //     }
+        //     if (getBalance(root.getLeft()) < -1){
+        //         if (getBalance(root.getLeft().getRight()) <= 0){
+        //             // System.out.println("Performing left rotation in left subtree...");
+        //             leftRotate(true, root);
+        //         }
+        //         else {
+        //             // System.out.println("Performing right left rotation in left subtree...");
+        //             root.getLeft().setRight(rightLeftRotate(root.getLeft()));
+        //             leftRotate(true, root);
+        //         }
+        //     }
+        //     performRotations(root.getLeft());
+        // }
     }
 
     // for use in insertions
@@ -498,8 +495,8 @@ public class AVLTree extends BinSearchTree{
                 nodeToBeDeleted.setData(newRoot.getData());
                 deleteR(nodeToBeDeleted, newRoot.getData());
             }
-            performRotations(AVLroot);
-            return;
+            // performRotations(AVLroot);
+            // return;
         }
         else if (root.getRight() != null && root.getRight().getData() == data){
             AVLNode nodeToBeDeleted = root.getRight();
@@ -523,8 +520,8 @@ public class AVLTree extends BinSearchTree{
                 deleteR(nodeToBeDeleted, newRoot.getData());
                 // System.out.println("tree before deleting extra copied node: " + this.toString());
             }
-            performRotations(AVLroot);
-            return;
+            // performRotations(AVLroot);
+            // return;
         }
         else if (data < root.getData()){
             deleteR(root.getLeft(), data);
@@ -540,7 +537,8 @@ public class AVLTree extends BinSearchTree{
         }
 
         // check the balances and perform rotations
-        performRotations(AVLroot);
+        // System.out.println("tree before rotations: " + this);
+        performRotations(root);
     }
 
     // wrapper for delete

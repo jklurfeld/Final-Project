@@ -477,17 +477,27 @@ public class AVLTreeTester {
 
     public static void randomTester(int numTries){
         for (int i = 0; i < numTries; i++){
+            int[] data = new int[10];
             AVLTree tree = new AVLTree();
             for (int j = 0; j < 10; j++){
-                tree.insert(new AVLNode((int)(Math.random()*100)));
+                data[j] = (int)(Math.random()*100);
+                tree.insert(new AVLNode(data[j]));
                 // System.out.println(tree);
             }
             if (!isBalanced(tree, tree.getRoot())){
-                System.out.println("Tree that is not balanced: " + tree);
+                System.out.println("Tree that is not balanced after insertion: " + tree);
                 return;
             }
             if (!isBinSearchTree(tree, tree.getRoot())){
-                System.out.println("Tree that's not a binSearchTree: " + tree);
+                System.out.println("Tree that's not a binSearchTree after insertion: " + tree);
+            }
+            tree.delete(data[(int)(Math.random()*9)]);
+            if (!isBalanced(tree, tree.getRoot())){
+                System.out.println("Tree that is not balanced after deletion: " + tree);
+                return;
+            }
+            if (!isBinSearchTree(tree, tree.getRoot())){
+                System.out.println("Tree that's not a binSearchTree after deletion: " + tree);
             }
         }
     }
