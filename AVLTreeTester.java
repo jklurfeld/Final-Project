@@ -1,5 +1,4 @@
 public class AVLTreeTester {
-    // make tree with random values to see if it works
 
     public static void classTester(){
         System.out.println("==== TESTING AVLTree CLASS ====");
@@ -16,8 +15,6 @@ public class AVLTreeTester {
         System.out.println("Result of isBalanced(): " + isBalanced(tree, tree.getRoot()));
         System.out.println("Result of isBinSearchTree(): " + isBinSearchTree(tree, tree.getRoot()));
         System.out.println("current tree: " + tree + "\n");
-
-        // TODO: test max
 
         System.out.println("Inserting 1 in tree...");
         tree.insert(new AVLNode(1));
@@ -128,7 +125,6 @@ public class AVLTreeTester {
 
     public static void rightRotateTester(){
         System.out.println("==== Testing rightRotate method ====");
-        // TODO: add tester for right rotating in right subtree? already tested this in driver-- do I need hardcoded example?
         System.out.println("Creating new tree and setting root to 10...");
         AVLTree tree = new AVLTree();
         tree.setRoot(new AVLNode(10));
@@ -374,7 +370,6 @@ public class AVLTreeTester {
         tree.insert(new AVLNode(11));
         System.out.println("current tree: " + tree + "\n");
 
-        //if you switch this to 5, then you'd be testing if the tree can rebalance itself after deleting a node
         System.out.println("Deleting 5...");
         tree.delete(5);
         System.out.println("current tree: " + tree + "\n");
@@ -502,6 +497,7 @@ public class AVLTreeTester {
         }
     }
 
+    // the following two methods isBalanced() and isBinSearchTree() are helper methods for the random tester
     public static boolean isBalanced(AVLTree tree, AVLNode root){
         if (tree.getBalance(root) > 1 || tree.getBalance(root) < -1){
             return false;
@@ -531,23 +527,6 @@ public class AVLTreeTester {
         return true;
     }
 
-    public static void badCase(){
-        // System.out.println("Creating new tree, setting root to 53, and inserting 21, 58, 2, 37, 72, 20, and 30...");
-        AVLTree tree = new AVLTree();
-        tree.setRoot(new AVLNode(11));
-        tree.insert(new AVLNode(4));
-        tree.insert(new AVLNode(71));
-        tree.insert(new AVLNode(0));
-        tree.insert(new AVLNode(52));
-        tree.insert(new AVLNode(73));
-        tree.insert(new AVLNode(56));
-        System.out.println("current tree: " + tree + "\n");
-
-        // System.out.println("inserting 97...");
-        tree.insert(new AVLNode(54));
-        System.out.println("current tree: " + tree);
-    }
-
     public static void main(String[] args){
         // classTester();
         // rootRightRotateTester();
@@ -565,6 +544,5 @@ public class AVLTreeTester {
         // caseThatWasntWorkingTester();
         // leftRightRotateDeletionTester();
         randomTester(100);
-        // badCase();
     }
 }

@@ -9,8 +9,6 @@ public class GeomAVLTree extends AVLTree{
             root.p.y = 50;
         }
         if (root.getLeft() != null){
-            // this next line of code is going to make it go off the screen, 
-            // TODO: maybe you could make it so everything shifts right if something's x coordinate is less than 0
             root.getLeft().p.x = root.p.x - 125/level;
             root.getLeft().p.y = root.p.y + 100;
             setPoints(root.getLeft(), level+1);

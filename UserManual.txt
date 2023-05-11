@@ -9,4 +9,5 @@ Options Menu:
     - print options: prints out the options menu
     - print tree: prints out a string representation of the tree, for each node the first number is the data, the second number
     is the balance factor, the third number is the height, and the fourth and fifth numbers are the x and y coordinates
-    - quit: quits the program (note that the program is not fully quit out of until you close the window visualizing the tree)
+    - quit: quits the program (note that the program is not fully quit out of until you close the window visualizing the tree, and
+    another way to quit the program is to close the visualization pop up window)

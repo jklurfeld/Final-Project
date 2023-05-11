@@ -1,6 +1,5 @@
 public class AVLNode extends BinTreeNode{
     private int height;
-    // private int balanceFactor;
     private AVLNode left;
     private AVLNode right;
     private AVLNode parent;
@@ -8,7 +7,6 @@ public class AVLNode extends BinTreeNode{
 
     public AVLNode(int data){
         super(data);
-        // balanceFactor = 0;
         height = 1;
         p = new Point(0, 0);
     }
