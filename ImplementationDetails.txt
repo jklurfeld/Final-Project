@@ -1,9 +1,10 @@
 Incorporated parts I got wrong on a previous homework:
     - Homework 6 level 5: continuous visualization
-    For Hw6 I didn't implement continuous visualization at all, and for this project I did
+    For Hw6 I didn't implement continuous visualization at all, and for this project I did.
 
-Why I used an ArrayList for BinSearchTree:
-
+Why I used an ArrayList for traverse method for BinSearchTree:
+    I used an ArrayList because this method came from Homework 7. We were asked to do an infix traversal of a binary search tree and then put the sorted data into a list rather than just print it. I chose
+    to use an ArrayList because the size of an ArrayList can change, which is necessary because we don't keep track of how many nodes are in a BinSearchTree to know how big to make an array at the start. 
 
 External Resources:
     - used to get a sense of how to use repaint: https://www2.seas.gwu.edu/~rhyspj/fall05cs143/lab8/lab88.html
@@ -18,14 +19,27 @@ What I figured out on my own:
     - For insertion:
         - I had to have different cases for if the root of the whole tree was unbalanced or any other node, because when rotating a normal node in the tree,
         I had to do it from the parent of that node so that no pointers were pointing to the wrong thing after the rotation process. This was something that I 
-        didn't see in the resources listed above. Also as a result of looking at the unbalanced node from its parent, I had to add another parameter to my rotation
-        functions to tell the function whether the rotation was supposed to happen in the left or right subtree.
+        didn't see in the resources listed above. Also as a result of looking at the unbalanced node from its parent, I had to check whether to do the rotation
+        in the left or right subtree of the parent.
     - For deletion:
         - I figured out how to do the implementation in Java of deletion because I only looked at the pseudocode/conceptual explanation of how to delete a node.
-        The hardest part was figuring out how to delete a node that has two children, because I had to write the helper function findMin() and I had to figure out how to delete the node that I copied
-        the data from.
+        The hardest part was figuring out how to delete a node that has two children, because I had to write the helper function findMin() and I had to figure 
+        out how to delete the node that I copiedthe data from.
     - I had to figure out a formula for what to set the x and y coordinates of each node to for the visualization
 
 What I want to add if i had more time:
-    - I was able to implement all of the things that I outlined in my proposal. A logical next step might be to animate the steps of the rotations, so you can really see what is
-    happening.
+    - I was able to implement all of the things that I outlined in my proposal. If I had more time, I would make the visualization better in order to work for bigger trees,
+    because right now the tree is able to go off the screen to the left (negative x-coordinates) and have overlapping nodes.
+
+What changed for each version:
+    - 4/21: Made the outline for the AVLTree and AVLNode classes by extending the BinSearchTree and BinTreeNode classes and writing what class variables I
+    thought I would need and getters and setters for them. I also started thinking about how I would keep track of the balance factors and heights.
+    - 4/24: Started writing insert method and the helper methods that go along with it along with a tester for the AVLTree class and a driver
+    - 4/26: Made separate rotation methods and cases for if the unbalanced node was the root of the tree or not, and realized that I needed to do the rotations
+    from the parent of the unbalanced node, so I made changes to the rotations regarding that too, and started writing the outline of the delete method
+    - 4/28: Continued writing delete function-- started filling in and testing the case for deleting the root when it had one or no children
+    - 5/3: Filled in all the different cases of deletion and tested them, extended the AVLtree class to the GeomAVLTree class and tested this new class,
+    added the class variable point to the AVLNode class, added one time visualization to the driver
+    - Latest version: Added continuous visualization, fixed the way that insertion and deletion works by checking if there needs to be rotations as
+    the recursion undoes itself rather than starting from the root of the tree to check for unbalanced nodes, this also made it so I had to add the class variable
+    parent to the AVLNode class in order to keep all of the pointers between nodes intact, added a random tester to check my AVLTree class to make sure that it really worked

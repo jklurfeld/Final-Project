@@ -1,6 +1,3 @@
-// resource for paint vs. repaint (although I still don't really understand it)
-// https://www2.seas.gwu.edu/~rhyspj/fall05cs143/lab8/lab88.html
-
 import java.util.Scanner;
 
 public class AVLTreeDriver {
