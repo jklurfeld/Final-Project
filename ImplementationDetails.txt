@@ -24,12 +24,13 @@ What I figured out on my own:
     - For deletion:
         - I figured out how to do the implementation in Java of deletion because I only looked at the pseudocode/conceptual explanation of how to delete a node.
         The hardest part was figuring out how to delete a node that has two children, because I had to write the helper function findMin() and I had to figure 
-        out how to delete the node that I copiedthe data from.
+        out how to delete the node that I copied the data from.
     - I had to figure out a formula for what to set the x and y coordinates of each node to for the visualization
 
 What I want to add if i had more time:
     - I was able to implement all of the things that I outlined in my proposal. If I had more time, I would make the visualization better in order to work for bigger trees,
-    because right now the tree is able to go off the screen to the left (negative x-coordinates) and have overlapping nodes.
+    because right now the tree is able to go off the screen to the left (negative x-coordinates) and have overlapping node, although because it's self balancing, it's able
+    to work for quite a few nodes without running into major issues
 
 What changed for each version:
     - 4/21: Made the outline for the AVLTree and AVLNode classes by extending the BinSearchTree and BinTreeNode classes and writing what class variables I

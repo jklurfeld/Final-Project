@@ -477,7 +477,6 @@ public class AVLTreeTester {
             for (int j = 0; j < 10; j++){
                 data[j] = (int)(Math.random()*100);
                 tree.insert(new AVLNode(data[j]));
-                // System.out.println(tree);
             }
             if (!isBalanced(tree, tree.getRoot())){
                 System.out.println("Tree that is not balanced after insertion: " + tree);
@@ -495,6 +494,7 @@ public class AVLTreeTester {
                 System.out.println("Tree that's not a binSearchTree after deletion: " + tree);
             }
         }
+        System.out.println("Done testing AVLTree class.");
     }
 
     // the following two methods isBalanced() and isBinSearchTree() are helper methods for the random tester
