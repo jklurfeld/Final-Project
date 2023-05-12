@@ -11,6 +11,7 @@ External Resources:
     - this is the first resource that I looked at on how to implement an AVL Tree and I did look at and try to adapt the Java code given on how to insert a node, but I quickly realized
     that it didn't work and would need a lot of changes, so I had to do a lot of debugging and figuring out on my own and with help from Alexandra: https://www.geeksforgeeks.org/insertion-in-an-avl-tree/
     - used to explain what an AVL Tree was and looked at the pseudocode given on how to implement insertion and deletion but not the Java code: https://www.programiz.com/dsa/avl-tree
+    - used this visualizer to better understand what was happening with insertions and deletions and to make sure my code was behaving the right way: https://www.cs.usfca.edu/~galles/visualization/AVLtree.html
 
 What I figured out on my own:
     - How to extend the BinSearchTree and BinTreeNode classes. I had to figure out how to work around the types being different for the types of nodes, because you can't override the types of class variables
@@ -25,6 +26,7 @@ What I figured out on my own:
         - I figured out how to do the implementation in Java of deletion because I only looked at the pseudocode/conceptual explanation of how to delete a node.
         The hardest part was figuring out how to delete a node that has two children, because I had to write the helper function findMin() and I had to figure 
         out how to delete the node that I copied the data from.
+    - This was from help from Alexandra and not from the linked resources, but I had to give each node a pointer to its parent in order for the rotations to work
     - I had to figure out a formula for what to set the x and y coordinates of each node to for the visualization
 
 What I want to add if i had more time:
@@ -35,7 +37,7 @@ What I want to add if i had more time:
 What changed for each version:
     - 4/21: Made the outline for the AVLTree and AVLNode classes by extending the BinSearchTree and BinTreeNode classes and writing what class variables I
     thought I would need and getters and setters for them. I also started thinking about how I would keep track of the balance factors and heights.
-    - 4/24: Started writing insert method and the helper methods that go along with it along with a tester for the AVLTree class and a driver
+    - 4/24: Started writing insert method and the helper methods that go along with it along with it, and wrote a tester for the AVLTree class and a driver
     - 4/26: Made separate rotation methods and cases for if the unbalanced node was the root of the tree or not, and realized that I needed to do the rotations
     from the parent of the unbalanced node, so I made changes to the rotations regarding that too, and started writing the outline of the delete method
     - 4/28: Continued writing delete function-- started filling in and testing the case for deleting the root when it had one or no children

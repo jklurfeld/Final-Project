@@ -1,7 +1,6 @@
 public class AVLTree extends BinSearchTree{
     AVLNode AVLroot;
 
-    // TODO: write testers for all these getters, setters, and helper methods
     public AVLNode getRoot(){
         return AVLroot;
     }
@@ -62,7 +61,6 @@ public class AVLTree extends BinSearchTree{
         if (T2 != null){
             T2.setParent(node);
         }
-        // T2.setParent(node);
 
         node.setHeight(max(height(node.getLeft()), height(node.getRight())) + 1);
         x.setHeight(max(height(x.getLeft()), height(x.getRight())) + 1);
@@ -459,7 +457,7 @@ public class AVLTree extends BinSearchTree{
         }
 
         // this case happens when you "deleted" a node by replacing it's data with the minimum from its right subtree,
-        // and now you're going back through that right subtree to really delete the node that you took the data from
+        // and now you're going back through that right subtree to delete the node that you took the data from
         else if (data == root.getData()){
             deleteR(root.getRight(), data);
         }
@@ -515,8 +513,6 @@ public class AVLTree extends BinSearchTree{
     }
 
     // helper method for insert and delete so if the node isn't in the tree, delete will still work
-    // and if there is a node with the data you're trying to insert already in the tree, you will get
-    // an error message
     public boolean search(AVLNode root, int data){
         if (root == null){
             return false;

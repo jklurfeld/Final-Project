@@ -20,6 +20,7 @@ public class GeomAVLTree extends AVLTree{
         }
     }
 
+    // updated toString() method that also prints out the x and y coordinates between two curly braces
     public String toString(AVLNode root){
         String result = "";
         if (isEmpty()){
